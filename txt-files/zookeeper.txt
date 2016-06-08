@@ -1,0 +1,41 @@
+Dev Sand box
+####### ZOOKEEPER #######
+[zookeeper]
+c4t15719.itcs.hp.com myid=1
+c4t13945.itcs.hp.com myid=2
+c4t14652.itcs.hp.com myid=3
+
+
+----------------------
+ITG
+####### ZOOKEEPER #######
+[zookeeper]
+c4t19867.itcs.hpecorp.net myid=1
+c4t19869.itcs.hpecorp.net myid=3
+c4t19872.itcs.hpecorp.net myid=2
+------------------------------
+
+[zookeeper-hadoop]
+172.20.13.39
+172.20.13.70
+172.20.13.84
+-------------------------
+
+DEV
+####### ZOOKEEPER #######
+[zookeeper]
+c4t17376.itcs.hpecorp.net myid=1
+c4t17381.itcs.hpecorp.net myid=2
+c4t17378.itcs.hpecorp.net myid=3
+---------------------------------------
+
+integration/services/capability-access-manager/
+
+services/capability-access-manager/capability-access-manager-rest
+services/capability-access-manager/capability-access-manager-rest/pom.xml
+services/capability-access-manager/capability-access-manager-rest/pom.xml
+services/capability-access-manager/capability-access-manager-rest/pom.xml
+
+
+docker tag -f sa20/capability-access-manager-rest:0-SNAPSHOT sa-docker-registry.itcs.hp.com/sa20/capability-access-manager-rest:0-SNAPSHOT
+docker push sa-docker-registry.itcs.hp.com/sa20/capability-access-manager-rest:0-SNAPSHOT
