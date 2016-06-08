@@ -1,0 +1,45 @@
+Curiosity Docker Building and Pushing
+
+docker build -t c4t11243.itcs.hp.com:5000/sa20/java
+docker push c4t11243.itcs.hp.com:5000/sa20/java
+docker build -t c4t11243.itcs.hp.com:5000/sa20/kafka kafka
+docker push c4t11243.itcs.hp.com:5000/sa20/kafka
+docker build -t c4t11243.itcs.hp.com:5000/sa20/zookeeper zookeeper
+docker push c4t11243.itcs.hp.com:5000/sa20/zookeeper
+docker build -t c4t11243.itcs.hp.com:5000/sa20/logstash logstash
+docker push c4t11243.itcs.hp.com:5000/sa20/logstash
+docker build -t c4t11243.itcs.hp.com:5000/sa20/storm-supervisor storm-supervisor
+docker push c4t11243.itcs.hp.com:5000/sa20/storm-supervisor
+docker build -t c4t11243.itcs.hp.com:5000/sa20/storm-nimbus storm-nimbus
+docker push c4t11243.itcs.hp.com:5000/sa20/storm-nimbus
+docker build -t c4t11243.itcs.hp.com:5000/sa20/storm-ui storm-ui
+docker push c4t11243.itcs.hp.com:5000/sa20/storm-ui
+
+-------------------------------------------
+Running
+
+docker run --name zookeeper -d -it -p 2181:2181 -p 2888:2888 -p 3888:3888 c4t11243.itcs.hp.com:5000/sa20/zookeeper
+docker run --name kafka -d -it -p 9092:9092 -e "ADVERTISED_HOST=192.168.99.100" -e "ZK=192.168.99.100:2181" c4t11243.itcs.hp.com:5000/sa20/kafka
+
+docker run --name nimbus -d -it -p 3773:3773 -p 3772:3772 -p 6627:6627 --link zookeeper:zk c4t11243.itcs.hp.com:5000/sa20/storm-nimbus
+docker run --name storm-supervisor -d -it --link zookeeper:zk --link nimbus:nimbus c4t11243.itcs.hp.com:5000/sa20/storm-supervisor
+docker run --name storm-ui -d -it -p 8081:8080 --link zookeeper:zk --link nimbus:nimbus c4t11243.itcs.hp.com:5000/sa20/storm-ui
+
+docker run --name curiosity-rest -d -it -p 8280:8280 -v /opt/mount1/mountForNFS:/opt/mount1/mountForNFS -e "application_id=batman" -e "ps_environment=sandbox" -e "ps_zookeeper_quorum=192.168.99.100" c4t11243.itcs.hp.com:5000/sa20/curiosity-rest:2.0.0-SNAPSHOT
+
+------------------------------------
+
+Hi Stewart,
+
+The below CSM boxes are used for the current SA2.0 DevOps Jenkins.   They were ordered under the SADB contract at the time.  
+Once we or SA2.0 have fully migrated to the new SA2.0 Central Build Environment we can de-commission them.  It’s WIP but we need to confirm/finalise the move. 
+
+
+C0052445	Shipyard
+C0052446	Jenkins docker host
+C0052447	Registry docker host
+C0052448	Docker host
+C0052449	Docker host
+C0052450	Docker host
+C0052451	Docker host
+----------------------------------------------

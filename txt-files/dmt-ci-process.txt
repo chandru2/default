@@ -1,0 +1,59 @@
+Apache Setup:
+
+1. yum install httpd
+2. chkconfig httpd on
+3. edit /etc/httpd/httpd.conf
+4. service httpd start
+
+Ruby 2.0 and Ralis 4.0
+
+1. curl -L get.rvm.io | bash -s stable 
+2. source /etc/profile.d/rvm.sh  (to use all users)
+3. rvm requirements
+4. rvm install 2.2.1
+5. rvm list
+6. rvm use 2.2.1
+7. rvm use 2.2.1 --default
+8. gem install rails
+9. ruby -v  and rails -v  to check the versions
+
+Phusion Passenger:
+
+1. gem install passenger
+2. yum install curl-devil httpd-devil
+3. passenger-install-apache2-module
+4. Update http.conf with output of passenger-apache install
+5. service httpd start
+
+
+A rails App Example:
+
+1. yum install sqlite-devel
+2. cd /var/www/html
+3. rails new helloapp
+4. cd helloapp
+5. gem 'therubyracer'
+6. bundle install
+7. rake db:migrate
+8. service httpd restart
+----------------------------------------------------
+
+From Workstation:
+
+1. Install chefDK on workstation machine
+2. configure knife to point to chef-server
+3. Bootstrap the nodes (VMs): knife bootstrap <Chef-node-hostname> --sudo -x chef -P chef -N <"node_name">
+	eg: knife bootstrap uvo18p7b82h867man1i.vm.cld.sr --sudo -x chef -P chef -N "node1"
+
+4. create cookbook/recipes
+	eg: knife cookbook create <cookbook-name>
+
+5. Upload cookbooks/recipes to Chef-server
+	eg: knife cookbook upload <cookbook-name>
+
+6. Add node to run_list cookbooks/recipes 
+ 
+
+From nodes:
+
+1.install and configure chef-client on nodes

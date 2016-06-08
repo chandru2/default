@@ -1,0 +1,58 @@
+he error message indicates yum is trying to install from the repoforge el5 repository instead of el6. This needs to be corrected.
+
+Here is the solution for this problem:-
+
+solution :- reinstall rpmforge
+
+go to terminal
+
+01.
+
+[root@gts250 rajiv]# su
+
+02.
+
+[root@gts250 rajiv]# wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+
+03.
+
+[root@gts250 rajiv]# rpm -Uvh rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+
+ 
+
+04.
+
+[root@gts250 rajiv]# yum clean all
+
+05.
+
+[root@gts250 rajiv]# yum update
+-------------------------------------------------------
+
+
+ 1045  yum clean all
+ 1046  cd /var/cache/yum/x86_64
+ 1047  ls
+ 1048  ansible
+ 1049  ls
+ 1050  cd 6
+ 1051  ls
+ 1052  rm -rf epel/
+ 1053  rm -rf updates/
+ 1054  rm -rf rpmforge/
+ 1055  clear
+ 1056  ls
+ 1057  yum remove epel-release
+ 1058  ls
+ 1059  wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+ 1060  rpm -ivh epel-release-6-8.noarch.rpm
+ 1061  rpm list
+ 1062  rpm repolist
+ 1063  yum repolist
+ 1064  wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+ 1065  rpm -Uvh rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+ 1066  yum clean all
+ 1067  yum update
+ 1068  yum install ansible
+ 1069  ansible --version
+ 1070  history

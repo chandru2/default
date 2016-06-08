@@ -1,0 +1,14 @@
+http://clouddatabase.corp.hp.com/Default.aspx
+
+ERP ID: 205002
+
+create a project with mysql:
+rails new TestMaria -d mysql
+
+g9t4212.houston.hp.com:1531
+devopstestdata1
+Welcome-1234
+	
+
+Connection String(hostname: port/schema): g9t4212.houston.hp.com:1531/devopstestdata1
+Username/pwd: devopstestdata1/Welcome-1234

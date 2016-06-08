@@ -1,0 +1,17 @@
+I'm setting timezone GMT+6 on my Linux machine by copying the zoneinfo file to /etc/localtime, but the date command is showing the time UTCtime-6. What is the reason for this behaviour?
+
+I'm assuming the date command should display UTCtime+6 time. Here are steps I'm following:
+date
+Wed Jan 22 17:29:01 IST 2014
+
+date -u
+Wed Jan 22 11:59:01 UTC 2014
+
+cp /usr/share/zoneinfo/Etc/GMT+6 /etc/localtime
+
+date
+Wed Jan 22 05:59:21 GMT+6 2014
+
+date -u
+Wed Jan 22 11:59:01 UTC 2014
+

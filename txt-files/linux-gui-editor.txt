@@ -1,0 +1,14 @@
+wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.1.tar.bz2
+Download the Linux 64-Bit Version of Sublime Text 2:
+Hide   Copy Code
+$ wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.1%20x64.tar.bz2
+Extract the "Sublime Text 2.0.1.tar.bz2" file (this will be "Sublime Text 2.0.1 x64.tar.bz2" for the 64 bit version):
+
+Extract the Sublime Text .tar file:
+Hide   Copy Code
+tar vxjf "Sublime Text 2.0.1.tar.bz2"
+Then you can add a sym link to the executable file with a short name for convenience (it seems to be a convention to use the alias "subl" for ease of use from the terminal. The executable file will be located in the extracted Sublime Text 2 directory. For example, if you extracted the .tar contents into a directory ~/apps then the sublime_text executable will be "home/Sublime Text 2/sublime_text" (since there are spaces in the directory name, we need to use quotes around the path).
+
+Add a Sym link:
+Hide   Copy Code
+sudo ln -s "~apps/Sublime Text 2/sublime_text" /usr/bin/subl

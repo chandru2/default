@@ -1,0 +1,5 @@
+https://githubenterprize2-0.irl.hp.com/hp/dmt.git
+
+bgc01p138.auth.hpicorp.net
+bgc01p145.auth.hpicorp.net
+:15.194.234.20  

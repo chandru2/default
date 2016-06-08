@@ -1,0 +1,8 @@
+curl -s https://repos.fedorapeople.org/repos/jkaluza/httpd24/epel-httpd24.repo > /etc/yum.repos.d/epel-httpd24.repo
+yum install httpd24-httpd
+
+ service httpd24-httpd start
+Starting httpd:                                            [  OK  ]
+# curl -s http://localhost/ | grep 'Test Page for'
+		<title>Test Page for the Apache HTTP Server on Red Hat Enterprise Linux</title>
+#

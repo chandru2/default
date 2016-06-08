@@ -1,0 +1,18 @@
+ install from EPEL
+[root@dlp ~]# yum --enablerepo=epel -y install sshpass
+[2]	How to use SSHPass.
+# -p password : from argument
+[cent@dlp ~]$ sshpass -p password ssh 10.0.0.51 hostname 
+node01.server.world
+# -f file : from file
+[cent@dlp ~]$ echo 'password' > sshpass.txt 
+[cent@dlp ~]$ chmod 600 sshpass.txt 
+[cent@dlp ~]$ sshpass -f sshpass.txt ssh 10.0.0.51 hostname 
+node01.server.world
+# -e : from env variable
+[cent@dlp ~]$ export SSHPASS=password 
+[cent@dlp ~]$ sshpass -e ssh 10.0.0.51 hostname 
+node01.server.world
+
+
+Red.car-91

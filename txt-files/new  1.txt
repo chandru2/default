@@ -1,0 +1,21 @@
+HPP - outside users - SiteMinder - LDAP - UGS
+Site Minder @hp
+KM Service - product Master
+SCM -Support Case Management (.Net) - IT
+SBS
+SPF
+
+
+
+Linux: Unix user / NT password
+HPUX B.11.31:  - Unix user / NT password
+HPUX B.11.23:  - Unix user / Unix password
+
+
+CSA/CSM: Contact Owners
+Send mail to John Smalle / Stewert
+
+Linux NGDC: LDAP
+Windows: LDAP
+
+NEXAS: EPR ID 

@@ -1,0 +1,7 @@
+git config --global http.sslVerify false 
+
+	
+You may want to ignore the .git directory: find . -name .git -prune -o -type d -empty -exec touch {}/.gitignore \; –  steffen Aug 12 '13 at 12:51 
+1	 	
+A simpler variation for most situations is find * -type d -empty -exec touch {}/.gitignore \; –  akhan Oct 24 '13 at 8:26
+add a comment

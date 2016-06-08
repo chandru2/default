@@ -1,0 +1,49 @@
+/etc/ssh/sshd_config
+
+# To disable tunneled clear text passwords, change to no here!
+#PasswordAuthentication yes
+#PermitEmptyPasswords no
+PasswordAuthentication yes
+#PasswordAuthentication no
+--------------------------
+running commands on remote system:
+
+ssh root@devopsgithub02.irl.hp.com 'mkdir -p /home/angadic/builds/x && tar xC /home/angadic/builds/x -f /home/angadic/builds/*.tar'
+
+--------------------------------------------------------
+
+running local script on remote server
+
+su angadic < /root/scripts/dmt-tar-scp.tar
+---------------------------------------------------
+#!/bin/bash
+
+############################################################
+#Author : Chandrashekar Angadi [chandru.av@hp.com]
+############################################################
+
+time=`date +%d-%y-%h-%s`
+jenkins_workspace=/var/lib/jenkins/jobs/dmt-dev-build/workspace
+dest_tar=/home/angadic/builds
+itg_host=devopsgithub02.irl.hp.com
+user=angadic
+tar_file=itg-dmt.tar
+
+project=dmt
+apache_webapp=/var/www/webapps
+ruby_path=/usr/local/rvm/gems/ruby-1.9.3-p551/bin
+doc_root=$apache_webapp/$project
+apache_conf=/etc/httpd/conf.d
+error_log=/var/www/webapps/scripts/log/
+
+cd $jenkins_workspace
+tar -cvf $dest_tar/$tar_file .  > /dev/null 2>&1
+scp $dest_tar/$tar_file $user@$itg_host:$dest_tar
+
+echo done
+--------------------------------------
+
+ssh -i deployment_key.txt demo@192.237.248.66
+
+
+

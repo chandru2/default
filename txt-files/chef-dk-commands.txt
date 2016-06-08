@@ -1,0 +1,106 @@
+
+CHEF:
+chef generate cookbook learn_chef_httpd
+chef generate template learn_chef_httpd index.html
+
+chef-apply:
+chef-apply hello.rb
+
+chef-client:
+chef-client --local-mode --runlist 'recipe[cookbook]'
+chef-client -z -r 'recipe[cookbook]'
+
+CHEF-SERVER: https://chef.itcs.hp.com
+
+
+KNIFE:
+knife cookbook create <apache>
+knife cookbook test <cookbook-name>
+knife cookbook upload <cookbook-name>
+knife bootstrap uvo18p7b82h867man1i.vm.cld.sr --sudo -x chef -P chef -N "node1"
+knife node run_list add node1 "recipe[apache]"
+knife client list
+Time Zone  - chef-client will not work "if time diff bet chef-server & chef-client machines is more than 15 min".
+knife node list
+knife search node "*.*" -a fqdn
+
+26-May-2015
+
+knife data_bag create users
+knife data_bag from file users bobo.json
+knife search users "*:*"
+knife data_bag create groups
+C:\Users\angadic\chef-repo\data_bags\groups>knife data_bag from file groups clowns.json
+
+C:\Users\angadic\chef-repo>knife role from file webserver.rb
+knife role from file webserver.rb
+knife node run_list add node1 "recipe[users]"
+knife node run_list add role "recipe[webserver]"
+
+
+Search:
+knife search role "run_list:recipe\[apache\]"
+knife cookbook site search chef-client
+knife cookbook site download chef-client
+knife cookbook site show chef-client
+
+knife cookbook upload chef-client cron logrotate windows chef_handler
+
+
+/opt/chef/embedded/bin/ruby
+
+
+27-May-2015:
+
+Food Critic:
+http://foodcritic.io/   #extra-rules
+
+C:\Users\angadic\chef-repo\.chef>gem install foodcritic --no-ri --no-rdoc -v 3.0.3
+
+foodcritic cookbooks/apache
+foodcritic cookbooks/apache -t FC003 -t FC009
+foodcritic cookbook/apache -t style
+
+Rubocop:
+gem install rubocop
+rubocop cookbooks/apache
+.rubocop.yml  - to ignore the errors
+
+bundle exec rubocop --require rubocop/formatter/checkstyle_formatter -R --format Rubocop::Formatter::CheckstyleFormatter --out /tmp/checkstyle.xml
+rubocop --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter --no-color --silent --rails --out checkstyle.xml
+
+
+
+
+
+gem 'rubocop', '~> 0.31.0'
+gem install rubocop-checkstyle_formatter
+
+
+ChefSpec: in memory testing
+gem install chefspec
+
+
+/var/chef -path of node local copy of cookbook
+
+
+not_if only_if
+ohai
+
+Resources:
+	execute - not impotent (will not check before running)
+	package
+	service
+	file
+
+
+Providers:
+
+
+
+[root@devopsgithub01 dmt]# rpm -e chefdk-0.5.1-1.el6.x86_64
+[root@devopsgithub01 dmt]# rpm -e chef-12.3.0-1.el6.x86_64
+--------------------------------------
+
+org: hp
+

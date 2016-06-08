@@ -1,0 +1,19 @@
+docker run -it --rm -p 8888:8080 -v /home/angadic/:/usr/local/tomcat/webapps --name tomcatServer tomcat:8.0
+
+
+
+
+ docker run -it --rm -p 8888:8080 tomcat:8.0
+
+
+/usr/local/tomcat/webapps
+
+docker run -d --name web -v /opt/webapp:ro training/webapp python app.py
+
+
+docker run --name svn2git_vol_2 -v /opt/mount2/gitsvn_vol_2:/gitsvn_vol -i -t sa-docker-registry.itcs.hp.com/devops/svn2git  
+
+docker run --name tomcatServer -v /home/angadic/:/usr/local/tomcat/webapps -it tomcat:8.0
+
+
+docker run -d --name tomcatServer -v /home/angadic/:/tmp -it -p 8888:8080 tomcat:8.0

@@ -1,0 +1,66 @@
+ansible -m command -a "docker ps" sonar -s
+ansible -m command -a "df" sonar
+
+ansible -m <mode> command <hostname> 
+
+
+ssh-copy-id root@devopsgithub02.ie.tslabs.hpecorp.net
+ssh-copy-id angadic@c4t20821.itcs.hpecorp.net
+
+
+# Insert git token
+#sed -i.bak s/token_placeholder/${BOT_GIT_TOKEN}/g docker-requirements.yml
+#sed -i.bak s/token_placeholder/angadic/g docker-requirements.yml
+
+#ansible-galaxy install -r docker-requirements.yml --force
+
+#sshpass -p ${SSH_PASSWORD} ansible-playbook -b -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} \
+#ansible-playbook -b -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} \
+#./docker-sonar.yml --extra-vars "docker_install_actions=${DOCKER_UPDATE} -s" -vvvv
+
+ssh -oStrictHostKeyChecking=no angadic@c4t20957.itcs.hpecorp.net
+echo done ........
+
+
+/etc/ssh/sshd_config
+
+
+#Below line modified from no to yes
+#PasswordAuthentication no
+PasswordAuthentication yes
+---------------------------------------------------------------------------------------------------
+[Service]
+ExecStart=
+ExecStart=/usr/bin/docker daemon -s overlay -g /opt/mount1/docker -H tcp://0.0.0.0:2375 -H fd:// -H unix://var/run/docker.sock --dns {{ docker.dns_one }} --dns {{ docker.dns_two }} --insecure-registry sa-docker-registry.itcs.hp.com  --insecure-registry sa-docker-registry.itcs.hpecorp.net
+
+# -H fd://[angadic@c4t20957 templates]$
+
+[angadic@c4t20957 TestCI1]$
+----------------------------------------------------------------------------------------------------
+
+ansible-playbook -b -i ./inventories/sonar ./docker-sonar.yml --extra-vars "docker_install_actions=no" --extra-vars "sa_registry=sa-docker-registry.itcs.hpecorp.net"
+----------------------------------------------------------------------------------------------------
+
+TASK: [docker-sonar | Start or reload sonar container] ************************
+failed: [c4t20993.itcs.hpecorp.net] => {"failed": true, "parsed": false}
+BECOME-SUCCESS-vpkovtfrewumzfxaivorfgsqdpckwzps
+Traceback (most recent call last):
+  File "/home/angadic/.ansible/tmp/ansible-tmp-1460617068.58-5750911253008/docker", line 3185, in <module>
+    main()
+  File "/home/angadic/.ansible/tmp/ansible-tmp-1460617068.58-5750911253008/docker", line 1482, in main
+    docker_api_version = dict(required=False, default=DEFAULT_DOCKER_API_VERSION, type='str'),
+NameError: global name 'DEFAULT_DOCKER_API_VERSION' is not defined
+OpenSSH_6.6.1, OpenSSL 1.0.1e-fips 11 Feb 2013
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 56: Applying options for *
+debug1: auto-mux: Trying existing master
+debug1: mux_client_request_session: master session id: 2
+Shared connection to c4t20993.itcs.hpecorp.net closed.
+
+...ignoring
+
+PLAY RECAP ********************************************************************
+c4t20993.itcs.hpecorp.net  : ok=4    changed=0    unreachable=0    failed=0
+
+--------------------------------------------------------------------------------------------------
+docker rmi sa-docker-registry.itcs.hpecorp.net/sa20/sonarqube-464a94d

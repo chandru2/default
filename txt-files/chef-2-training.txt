@@ -1,0 +1,116 @@
+
+29/Aug/2015
+
+https://use.cloudshare.com/login.aspx
+https://learn.chef.io/screencasts/chef-lab/
+
+user: chandru_av@yahoo.com
+pwd: chandru
+External Address:	uvo1a79g9yjzp4p2lj9.vm.cld.sr  Click to copy to clipboard
+Internal IP:	
+10.160.109.251
+Total Memory:	512 MB
+Disk Size:	16 GB
+CPU:	1
+Credentials: Lg87u778WP	
+Auto-login:	sysadmin (local user)
+--------------------------------------------------------
+$ echo $HTTP_PROXY
+http://web-proxy.corp.hp.com:8080
+
+angadic@ANGADIC2 ~/chef-fundamentals-repo-master
+$ echo $HTTPS_PROXY
+http://web-proxy.corp.hp.com:8080
+---------------------------------------------------------
+VM Details
+External Address:	uvo118ncpnk7vwxja0d.vm.cld.sr  Click to copy to clipboard: uvo118ncpnk7vwxja0d.vm.cld.sr
+Internal IP:	
+10.160.201.90
+Total Memory:	1024 MB
+Disk Size:	16 GB
+CPU:	1
+The machine was prepared in 2 seconds
+Credentials (show password)
+Auto-login:	root (local user)
+Username:	root
+Password:	******  Yb43R5W9h7   Yb43R5W9h7
+
+chandru_av@yahoo.com
+chandru2 / chandru
+
+knife cookbook upload -a
+knife role from file base.rb starter.rb web.rb
+knife envirnment from file env.rb
+knife upload data_bags
+
+
+$ knife bootstrap uvo118ncpnk7vwxja0d.vm.cld.sr --sudo -x chef -P chef -N "node1"
+chef-client
+chef-client -l info
+
+
+Upload base role:
+
+"recipe[chef-client::config]"
+$ knife role from file base.rb
+
+Resorces:
+type
+
+
+angadic@ANGADIC2 ~/chef-fundamentals-repo-master
+$ knife data_bag create apache_sites
+Created data_bag[apache_sites]
+
+angadic@ANGADIC2 ~/chef-fundamentals-repo-master
+$ knife data_bag from file apache_sites clowns.json bears.json
+
+angadic@ANGADIC2 ~/chef-fundamentals-repo-master
+$ knife data_bag create apache_sites
+Created data_bag[apache_sites]
+
+angadic@ANGADIC2 ~/chef-fundamentals-repo-master
+$ knife data_bag from file apache_sites clowns.json bears.json
+
+[root@CentOS63 conf.d]# netstat -nlap |grep -i listen |grep -i http
+
+knife node show node1 -a interactive
+
+chef (12.4.1)> nodes.all {|n| "#{n.name}:#{n.chef_environment}"}
+ => ["node1:_default"]
+chef (12.4.1)>
+
+ knife exec -E 'nodes.transform(:name => "node1") {|n| n.chef_environment("production")}'
+
+30/Aug/2015
+
+ knife cookbook site download ohai
+
+tar -zxvf ohai-2.0.1.tar.gz  -C cookbooks/
+------------------------------------------
+uvo1cna6jmk3jsc7m59.vm.cld.sr
+Mc5vuQPTH6
+--------------------------------------------
+
+
+knife node run_list set node1 'recipe[apache::ohai_plugin]','role[web]'
+knife node show node1 -a apache.modules
+knife node show node1 -a etc.passwd
+
+---
+knife cookbook create email_handler
+knife cookbook site download postfix
+knife cookbook create mailx
+
+
+
+-------------------------
+Foodcritic  - for chef
+foodcritic cookbooks/apache
+foodcritic cookbooks/apache -t ~FC003 -t FC009
+
+rubocop -- for ruby
+
+----
+rspec / chefspec
+

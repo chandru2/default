@@ -1,0 +1,102 @@
+
+
+Apache Setup:
+
+1. yum install httpd
+2. chkconfig httpd on
+3. edit /etc/httpd/httpd.conf
+4. service httpd start
+
+Ruby 2.0 and Ralis 4.0
+
+1. curl -L get.rvm.io | bash -s stable 
+2. source /etc/profile.d/rvm.sh  (to use all users)
+3. rvm requirements
+4. rvm install 2.2.1
+5. rvm list
+6. rvm use 2.2.1
+7. rvm use 2.2.1 --default
+8. gem install rails
+9. ruby -v  and rails -v  to check the versions
+
+Phusion Passenger:
+
+1. gem install passenger
+2. yum install curl-devel httpd-devel
+3. passenger-install-apache2-module
+4. Update http.conf with output of passenger-apache install
+5. service httpd start
+
+
+A rails App Example:
+
+1. yum install sqlite-devel
+2. cd /var/www/html
+3. rails new helloapp
+4. cd helloapp
+5. gem 'therubyracer'
+6. bundle install
+7. rake db:migrate
+8. service httpd restart
+-----------------------------------------
+
+
+yum install gcc mysql-devel ruby-devel rubygems
+gem install mysql -- --with-mysql-config=/usr/bin/mysql_config
+gem install mysql2 -- --with-mysql-config=/usr/bin/mysql_config
+-------------------------------------------------------------
+Database: MariaDB
+
+mysqladmin -u root password “newpassword”
+mysqladmin -u root -h host_name password “newpassword”
+/etc/init.d/mysql restart
+
+--------------------------------------------------------------------------
+sudo chcon -R -h -t httpd_sys_content_t /path-to-your-app
+apachectl -t -D DUMP_MODULES 
+setenforce 0
+
+
+--------------------------------------------------------------------------
+Please edit your Apache configuration file, and add these lines:
+
+
+ LoadModule passenger_module /usr/local/rvm/gems/ruby-2.2.1/gems/passenger-5.0.9/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+     PassengerRoot /usr/local/rvm/gems/ruby-2.2.1/gems/passenger-5.0.9
+     PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.2.1/wrappers/ruby
+   </IfModule>
+
+----------------------------------------------
+   LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p643/gems/passenger-5.0.7/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+     PassengerRoot /usr/local/rvm/gems/ruby-2.0.0-p643/gems/passenger-5.0.7
+     PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.0.0-p643/wrappers/ruby
+   </IfModule>
+
+RackEnv development
+
+After you restart Apache, you are ready to deploy any number of web
+applications on Apache, with a minimum amount of configuration!
+
+
+Task: Store files / upload files for your web site
+
+You need to upload files at /var/www/html under RHEL / CentOS / Fedora Linux operating system.
+You need to upload files at /var/www/ under Debian or Ubuntu Linux operating system.
+
+--------------------------------
+
+ LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.3-p551/gems/passenger-5.0.8/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+
+	#PassengerRoot /usr/local/rvm/gems/ruby-1.9.3-p551/gems/passenger-5.0.7
+	#PassengerDefaultRuby /usr/local/rvm/gems/ruby-1.9.3-p551/wrappers/ruby
+     	
+	PassengerRoot /usr/local/rvm/gems/ruby-1.9.3-p551/gems/passenger-5.0.8
+     	PassengerDefaultRuby /usr/local/rvm/gems/ruby-1.9.3-p551/wrappers/ruby
+   </IfModule>
+
+https://www.phusionpassenger.com
+
+---------------------

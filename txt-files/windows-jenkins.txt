@@ -1,0 +1,38 @@
+Jenkins Windows slave:
+
+
+Run from slave command line:
+
+javaws http://sa-build.itcs.hp.com/rsdc/computer/SlaveOn15994_new/slave-agent.jnlp
+Or if the slave is headless:
+
+java -Dhttp.proxyHost=web-proxy.corp.hp.com -Dhttp.proxyPort=8080 -jar slave.jar -jnlpUrl http://sa-build.itcs.hp.com/rsdc/computer/SlaveOn15994_new/slave-agent.jnlp
+
+
+c4t12877.itcs.hp.com:50000 - jenkins master
+
+c4w15994.itcs.hp.com - Windows slave
+
+
+
+--------------------------------
+Cipher for RSDC
+--------------------------------
+
+
+[?12/?14/?2015 7:09 PM] Angadi, Chandrashekar Veerappa: 
+RFC C11144567
+[?12/?14/?2015 7:10 PM] Kerr, Brian: 
+https://itsm-hpit.corp.hp.com/sm/index.do
+
+[?12/?14/?2015 7:22 PM] Kerr, Brian: 
+https://support.microsoft.com/en-us/kb/245030
+
+https://www.hass.de/content/setup-your-iis-ssl-perfect-forward-secrecy-and-tls-12 
+
+
+[?12/?14/?2015 7:35 PM] Gill, Aidan: 
+
+E:\ORACLE\product\11.2.0\client_1\jdk\bin\java -jar F:\PoodleApplication\Poodle.jar -h c0053004.itcs.hp.com -v 2 
+
+

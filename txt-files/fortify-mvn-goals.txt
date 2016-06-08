@@ -1,0 +1,3 @@
+clean install -Dbuild.number=${BUILD_NUMBER} -Dbuild.revision=${GIT_COMMIT} -Dbuild.branch=${GIT_BRANCH} -Dbuild.tag=${VERSION_NUMBER} -X
+
+com.fortify.ps.maven.plugin:maven-sca-plugin:clean com.fortify.ps.maven.plugin:maven-sca-plugin:translate com.fortify.ps.maven.plugin:maven-sca-plugin:scan -Dfortify.sca.source.version=1.7 -Dfortify.sca.upload=true -Dfortify.f360.url=https://sa-fortify.itcs.hpecorp.net/ssc -Dfortify.f360.authToken=4741e0d8-b4f9-4f62-8b8f-2232f8fd4920 -Dfortify.f360.projectName=Platform -Dfortify.f360.projectVersion=2.0.0

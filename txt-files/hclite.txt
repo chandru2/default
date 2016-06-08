@@ -1,0 +1,7 @@
+
+
+HTTP Request
+URL: http://c1w12617.itcs.hpecorp.net:8080/CCHealthCheck/ExecuteHealthCheck?FQDN=CCVirtualHost_RSDCJenkins&ENV=fut1
+
+HTTP mode: GET
+pass build params to URL ? yes no --> no

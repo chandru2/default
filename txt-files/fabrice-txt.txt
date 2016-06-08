@@ -1,0 +1,55 @@
+Hi,
+
+To get you started I’ve briefly explained the proposed environment in attached slides and below.  We’ve decided to go with the same architecture as we currently have running for SA2.0.
+
+I’ll arrange some training sessions shortly, but if you could run through the basics first that would be great.
+
+Ansible
+
+We're using Ansible for automated configuration and adminstration of the cluster.
+
+•	General info: http://www.ansible.com/home
+
+•	Ansible with Docker: http://www.ansible.com/docker
+•	Instructions and playbooks for SA2.0:
+https://github-enterprise-11-10.irl.hp.com/SA20/docker-ansible
+
+
+Docker
+
+We're using Docker containers to run the Jenkins master and slave images.  Docker containers are like a dedicated lightweight VM. 
+
+•	Docker explained: https://www.docker.com/whatisdocker/
+
+•	Commands:  https://docs.docker.com/reference/commandline/cli/
+
+•	Jenkins Master (Docker Image)
+we get the public docker image from https://registry.hub.docker.com/_/jenkins/  We will then have the latest version with bug fixes etc.
+
+•	Jenkins Slaves (Docker Image)
+We have the dockerfiles hosted on our GitHub:  https://github-enterprise-11-10.irl.hp.com/SA20/dockerfiles/tree/master/jenkins-slave 
+These are SADB examples, but we have a docker Registry which holds the latest SA2.0 images.  This way we can customize them for each component team.
+
+Shipyard
+
+Used for docker container management.  From the UI we can very quickly deploy new Jenkins Agents, restart them etc.  This can also be done by ssh'ing into the VM and using the commandline.
+
+•	See our current Shipyard: http://sa-shipyard.itcs.hp.com/#/containers  username/password: admin/shipyard
+
+•	Check the SA2.0 Support wiki page, has some general info and docker commands:
+https://rndwiki2.atlanta.hp.com/confluence/display/DevOps/Jenkins+CI+Support+Documentation
+
+To experiment with Docker I recommend installing a VM locally (i.e. Virtualbox), pulling down the images from our registry (i.e. sa-registry.itcs.hp.com/SA20/Jenkins and running them locally.  
+
+Let me know if you have any questions.
+
+Regards,
+Fabrice.
+
+
+
+iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
+
+$ sudo iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+$ sudo service iptables save
+

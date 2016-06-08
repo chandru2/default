@@ -1,0 +1,17 @@
+find . -name *.rb | xargs grep -P "[\x80-\xFF]" -l | xargs sed "1i # encoding: utf-8" -i
+
+#encoding: utf-8
+
+find . -type f -name "FILE-TO-FIND" -exec rm -f {} \;
+
+find ./ -type f -name config.xml -exec sed -i 's/git\@githubenterprize2-0\.ie\.tslabs\.hpecorp\.net/git\@github-sc-p\.corp\.hp\.com/g'  {} \;
+find ./ -type f -name config.xml -exec sed -i 's/https:\/\/githubenterprize2-0\.ie\.tslabs\.hpecorp\.net/https:\/\/github-sc-p\.corp\.hp\.com/g' {} \;
+
+find ./ -type f -name config -exec sed -i 's/https:\/\/githubenterprize2-0\.ie\.tslabs\.hpecorp\.net/https:\/\/github-sc-p\.corp\.hp\.com/g' {} \;
+find ./ -type f -name config -exec sed -i 's/https:\/\/githubenterprize2-0\.irl\.hp\.com/https:\/\/github-sc-p\.corp\.hp\.com/g' {} \;
+
+
+find ./ -type f -name config -exec sed -i 's/https:\/\/github-sc-p\.corp\.hp\.com\/hp/https:\/\/github-sc-p\.corp\.hp\.com\/TS-RnD/g' {} \;
+
+githubenterprize2-0.irl.hp.com
+

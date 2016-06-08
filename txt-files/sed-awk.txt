@@ -1,0 +1,6 @@
+cat xx |sed -e 's/^[[:space:]]//g' -e 's/$[[:space;]]//g' -e 's/ALM//g' | awk -F')' '{ print $1 ")="$2 }'
+
+cat xx |awk '{$1=$1; print}' |awk -F')' '{print $1") ="$2}' > xz
+ cat xz |sed -e 's/ALM//g'
+cat xz |sed -e 's/ALM//g' -e 's/\s$//g'
+

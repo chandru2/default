@@ -1,0 +1,194 @@
+
+
+
+sudo wget -O /etc/yum.repos.d/sonar.repo http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
+sudo yum install sonar
+
+
+
+CREATE DATABASE sonar CHARACTER SET utf8 COLLATE utf8generalci; 
+CREATE USER 'sonar' IDENTIFIED BY 'sonar';
+GRANT ALL ON sonar.* TO 'sonar'@'%' IDENTIFIED BY 'sonar';
+GRANT ALL ON sonar.* TO 'sonar'@'localhost' IDENTIFIED BY 'sonar';
+FLUSH PRIVILEGES;
+
+
+sudo service sonar start
+
+Securing Sonar
+
+You can log in with the default account “admin” with password “admin”. The first thing you should do is of course change the password on the page under “Administrator” > “My Account”. After that you can disable access from anonymous users in the “Settings” > “Configuration” > “Security” page by selecting True in the “Force user authentication” setting.
+
+Installing SonarQube Runner
+
+Installation instructions can be found here: http://docs.codehaus.org/display/SONAR/Installing+and+Configuring+SonarQube+Runner
+
+
+ cd /opt
+$ sudo wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.2.2/sonar-runner-dist-2.2.2.zip
+$ sudo unzip sonar-runner-dist-2.2.2.zip
+$ sudo ln -s sonar-runner-2.2.2 sonar-runner
+
+
+sudo echo -e '#!/bin/bash\nexport SONAR_RUNNER_HOME=/opt/sonar-runner\nexport PATH=$PATH:$SONAR_RUNNER_HOME/bin' > /etc/profile.d/sonar-runner.sh
+
+
+ export SONAR_RUNNER_HOME=/opt/sonar-runner
+$ export PATH=$PATH:$SONAR_RUNNER_HOME/bin
+
+Now the runner has been installed, and you can test it by executing this command:
+
+
+$ sonar-runner -v
+If everything worked correctly, you should receive the Sonar Runner version number as output.
+
+------------------------------------------------------------------------
+
+
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube:5.1
+-------------------------------------------------------------------------
+
+To analyse a project:
+
+$ On Linux:
+mvn sonar:sonar
+
+$ With boot2docker:
+mvn sonar:sonar -Dsonar.host.url=http://$(boot2docker ip):9000 -Dsonar.jdbc.url="jdbc:h2:tcp://$(boot2docker ip)/sonar"
+Database configuration
+By default, the image will use an embedded H2 database that is not suited for production.
+
+The production database is configured with these variables: SONARQUBE_JDBC_USERNAME, SONARQUBE_JDBC_PASSWORD and SONARQUBE_JDBC_URL.
+
+$ docker run -d --name sonarqube \
+    -p 9000:9000 -p 9092:9092 \
+    -e SONARQUBE_JDBC_USERNAME=sonar \
+    -e SONARQUBE_JDBC_PASSWORD=sonar \
+    -e SONARQUBE_JDBC_URL=jdbc:postgresql://localhost/sonar \
+    sonarqube:5.1
+
+
+----------------------------------------------------------------
+docker run -d --name postgresql -p 5432:5432 -e POSTGRESQL_USER=sonar -e POSTGRESQL_PASS=sonar -e POSTGRESQL_DB=sonar postgresql
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 -e SONARQUBE_JDBC_USERNAME=sonar -e SONARQUBE_JDBC_PASSWORD=sonar -e SONARQUBE_JDBC_URL=jdbc:postgresql://c0052446.itcs.hp.com/sonar sonarqube:5.1;
+------------------------------------------------------------------
+
+http://15.48.42.35:9000
+http://15.48.42.35:9000/dashboard/index/1
+http://c0052446.itcs.hp.com:9000/
+jdbc:postgresql://c4t17114.itcs.hpecorp.net/sonar
+
+
+
+jdbc:mysql://g2t3327.austin.hpecorp.net:1531/TSRD_SONAR?useUnicode=true&characterEncoding=utf8
+
+
+
+/opt/sonarqube/bin
+root@360941b439c7:/opt/sonarqube/bin# cat run.sh
+
+#!/bin/bash
+set -e
+
+if [ "${1:0:1}" != '-' ]; then
+exec "$@"
+fi
+
+exec java -jar lib/sonar-application-$SONAR_VERSION.jar \
+-Dsonar.log.console=true \
+-Dsonar.jdbc.username="$SONARQUBE_JDBC_USERNAME" \
+-Dsonar.jdbc.password="$SONARQUBE_JDBC_PASSWORD" \
+-Dsonar.jdbc.url="$SONARQUBE_JDBC_URL" \
+-Dsonar.web.javaAdditionalOpts="-Djava.security.egd=file:/dev/./urandom" \
+"$@"r
+root@360941b439c7:/opt/sonarqube/bin# ps aux | grep Addi
+
+
+
+
+
+---------
+sonar.projectKey=my:project
+# this is the name displayed in the SonarQube UI
+sonar.projectName=My project
+sonar.projectVersion=1.0
+ 
+# Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.
+# Since SonarQube 4.2, this property is optional if sonar.modules is set. 
+# If not set, SonarQube starts looking for source code from the directory containing 
+# the sonar-project.properties file.
+sonar.sources=.
+
+--------------------------
+
+
+sonar.projectKey=Curiosity:project
+sonar.projectName=Curiosity
+sonar.projectVersion=2.0
+sonar.sources=.
+sonar.host.url=http://c0052446.itcs.hp.com:9000/
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+clean deploy findbugs:findbugs checkstyle:checkstyle sonar:sonar -P CI -Dbuild.number=${BUILD_NUMBER} -Dbuild.revision=${GIT_COMMIT} -Dbuild.branch=${GIT_BRANCH} -Dbuild.tag=${VERSION_NUMBER}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#!/bin/bash
+payload="{\"status_build\": {\"sha\": \"${SHA}\", \"url\": \"$BUILD_URL\"}}"
+curl -X POST http://15.194.232.165:80/curiosity -H "X_JENKINS_EVENT: status_build" --form payload="$payload"
+----------------------------------------------------------------------------------------------------
+clean install -P CI -Dbuild.number=${BUILD_NUMBER} -Dbuild.revision=${GIT_COMMIT} -Dbuild.branch=${GIT_BRANCH} -Dbuild.tag=${VERSION_NUMBER}
+------------------------------------------------------------------------------------------------------
+
+sonar.projectKey=Curiosity:project
+sonar.projectName=Curiosity
+sonar.projectVersion=${BUILD_NUMBER}-${BUILD_ID}-${GIT_COMMIT}-${GIT_BRANCH}
+sonar.sources=.
+sonar.host.url=http://c4t20694.itcs.hpecorp.net:9000/
+
+jdbc:postgresql://c0052446.itcs.hp.com/sonar
+
+
+sonar.host.url=http://c4t20694.itcs.hpecorp.net:9000/  (for maria DB phuong sonar)
+
+------------------------------------------------------------------------
+
+[root@c0052446 angadic]# docker ps -a
+CONTAINER ID        IMAGE                                               COMMAND                CREATED             STATUS                    PORTS                                            NAMES
+cc85fbad22e9        sonarqube:5.1                                       "./bin/run.sh"         8 weeks ago         Exited (0) 11 days ago    0.0.0.0:9000->9000/tcp, 0.0.0.0:9092->9092/tcp   sonarqube
+d169baf625df        orchardup/postgresql:latest                         "/usr/local/bin/run"   8 weeks ago         Exited (0) 11 days ago    0.0.0.0:5432->5432/tcp                           stoic_brattain
+3923753bd1f3        mysql:5                                             "/entrypoint.sh mysq   9 weeks ago         Exited (0) 7 weeks ago                                                     mysqldb
+c631b2b0be74        registry.itcs.hp.com/sadevops/jenkins-sa20:latest   "/usr/local/bin/jenk   7 months ago        Exited (0) 11 days ago                                                     jenkins-blue
+0dc1afe9948d        933d7742a09f                                        "\"/bin/sh -c '#(nop   8 months ago        Exited (0) 3 months ago                                                    thirsty_elion
+42357496ef79        f2a71e43e310                                        "/bin/sh -c '#(nop)    8 months ago        Exited (0) 3 months ago                                                    determined_einstein
+909051cea4f5        java:7                                              "/bin/sh -c '#(nop)    8 months ago                                                                                   happy_mestorf
+886e9609eb54        2133727ce6dc                                        "\"/bin/sh -c '#(nop   8 months ago                                                                                   compassionate_hopper
+f7c7e6ed0fa9        42dd547239ed                                        "/bin/sh -c '#(nop)    8 months ago                                                                                   agitated_franklin
+85ed0fa8c22b        java:7                                              "/bin/sh -c '#(nop)    8 months ago                                                                                   mad_galileo
+d60d55e7c755        8ac53858487e                                        "/usr/local/bin/jenk   8 months ago        Up 11 days                0.0.0.0:80->8080/tcp, 0.0.0.0:50000->50000/tcp   jenkins
+----------------------------------------------------------------------------------------------------
+orchardup/postgresql
+REPOSITORY                                              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+orchardup/postgresql                                    latest              837be9974ea2        18 months ago       488.6 MB
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Sonar with Maria DB:
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 -e -DSONARQUBE_JDBC_USERNAME=TSRD_SONAR -e -DSONARQUBE_JDBC_PASSWORD=Welcome-1234 -e -DSONARQUBE_JDBC_URL=jdbc:mysql://g2t3327.austin.hpecorp.net:1531/TSRD_SONAR sonarqube:5.1
+-----------------------------------------------------------------------------------------------------------------------------------
+iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 1531 -j ACCEPT
+----------------------------------------------------------------------------
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 -e SONARQUBE_JDBC_USERNAME=TSRD_SONAR -e SONARQUBE_JDBC_PASSWORD=Welcome-1234 -e SONARQUBE_JDBC_URL="jdbc:mysql://g2t3327.austin.hpecorp.net:1531/TSRD_SONAR?useUnicode=true&characterEncoding=utf8" sonarqube:5.1 
+-----------------------------------------------
+
+http://c4t20694.itcs.hpecorp.net:9000/ 
+SONARQUBE_JDBC_USERNAME=TSRD_SONAR -e SONARQUBE_JDBC_PASSWORD=Welcome-1234 -e SONARQUBE_JDBC_URL="jdbc:mysql://g2t3327.austin.hpecorp.net:1531/TSRD_SONAR?useUnicode=true&characterEncoding=utf8" sonarqube:5.1 
+
+jdbc:mysql://g2t3327.austin.hpecorp.net:1531/TSRD_SONAR?useUnicode=true&characterEncoding=utf8
+jdbc:postgresql://c4t20993.itcs.hpecorp.net/sonar
+-------------------------------------------------------
+
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 -e SONARQUBE_JDBC_USERNAME=TSRD_SONAR -e SONARQUBE_JDBC_PASSWORD=Welcome-1234 -e SONARQUBE_JDBC_URL="jdbc:mysql://g2t3327.austin.hpecorp.net:1531/TSRD_SONAR?useUnicode=true&characterEncoding=utf8" sonarqube:5.1 
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 -e -DSONARQUBE_JDBC_USERNAME=sonar -e -DSONARQUBE_JDBC_PASSWORD=sonar -e -DSONARQUBE_JDBC_URL=jdbc:postgresql://c4t20993.itcs.hpecorp.net/sonar sonarqube:5.1;
+
+http://c4t20993.itcs.hpecorp.net:9000/  new centos machine
+jdbc:mysql://g2t3327.austin.hpecorp.net:1531/TSRD_SONAR?useUnicode=true&characterEncoding=utf8
+
+clean install findbugs:findbugs checkstyle:checkstyle  -P CI -Dbuild.number=${BUILD_NUMBER} -Dbuild.revision=${GIT_COMMIT} -Dbuild.branch=${GIT_BRANCH} -Dbuild.tag=${VERSION_NUMBER}

@@ -1,0 +1,142 @@
+
+1. curiosity-PRO-H4-RE_IP-6 
+
+	c4t20100.itcs.hpecorp.net	zookeeper	 	 	 
+	c4t20101.itcs.hpecorp.net	zookeeper	 	 	 
+	c4t20102.itcs.hpecorp.net
+
+ 
+	201377 - EPRID
+	CPU	4
+	Memory	32768
+	disk1 - 100g
+	disk2 - 150g
+	disk3 - 20gb
+
+2. curiosity-PRO-H4 ZooKeeper (3/March/2016)
+
+	c4t20994.itcs.hpecorp.net
+	c4t21001.itcs.hpecorp.net
+	c4t21000.itcs.hpecorp.net
+
+	c4t20993.itcs.hpecorp.net - sonar
+
+
+
+	
+3. TecOps Fortify Code Scan Service  
+	c4t19776.itcs.hpecorp.net
+	c4t19777.itcs.hpecorp.net
+
+4. Test machine
+	CentOS-	c4t20957.itcs.hpecorp.net
+	RHEL -  c4t20821.itcs.hpecorp.net
+---------------------------------------------------------------
+
+
+Here is the CSA Server details,
+Subscription Name	curiosity-ITGH4_Analysis_Data_tee	curiosity-ITGH9_Analysis_Data_tee
+Contract Name	CSA-16-HPE-CLOUD-0028102	CSA-16-HPE-CLOUD-0028101
+		
+Host Names	
+	c4t22591.itcs.hpecorp.net	c9t22585.itcs.hpecorp.net
+ 	c4t22589.itcs.hpecorp.net	c9t22587.itcs.hpecorp.net
+ 	c4t22588.itcs.hpecorp.net	c9t22586.itcs.hpecorp.net
+ 	c4t22593.itcs.hpecorp.net	
+ 	c4t22592.itcs.hpecorp.net	
+ 	c4t22590.itcs.hpecorp.net
+
+https://c4t22591.itcs.hpecorp.net/health.html
+-------------------------------------------------------------	
+old ITG H4 apache servers
+
+c4t19043.itcs.hpecorp.net
+c4t19044.itcs.hpecorp.net
+c4t19042.itcs.hpecorp.net
+https://c4t19043.itcs.hpecorp.net/health.html 
+https://c4t19044.itcs.hpecorp.net/health.html 
+https://c4t19042.itcs.hpecorp.net/health.html
+----------------------------------------------------------------
+new H4 RHEL 6.7 apache servers: CSA-16-HPE-CLOUD-0024251
+c4t22735.itcs.hpecorp.net
+c4t22736.itcs.hpecorp.net
+c4t22739.itcs.hpecorp.net
+https://c4t22735.itcs.hpecorp.net/health.html
+
+access for above RHEL apache susbcription
+
+manuel.desouza@hpe.com
+jakob.gorol@hpe.com
+andreas.ludwig@hpe.com
+matthias.franz@hpe.com
+pcurran@hpe.com
+mark.davis2@hpe.com
+andrea.torske@hpe.com
+damien.joyce@hpe.com
+ian.matthews@hpe.com
+sean.naughton@hpe.com
+kevin.byrne2@hpe.com
+patrick.hoban@hpe.com
+tjoseph@hpe.com
+niamhk@hpe.com
+james.mcgarry@hpe.com
+pobyrne@hpe.com
+mark.walsh5@hpe.com
+michael.spratte@hpe.com
+surekha.m.balaji@hpe.com
+mihai.matei@hpe.com
+leone.cesca@hpe.com
+diarmuid.o-hara@hpe.com
+------------------------------------------------------------
+LLB for H9 PRO:
+http://sa-monitoring-pro-h9.itcs.hpecorp.net/
+http://c9t19187.itcs.hpecorp.net/health.html
+
+----------------------
+updated wiki with details: how to order new CSA node.
+
+
+curiosity-itg-h4-Apache-2 
+CSA-16-HPE-CLOUD-0028455
+
+c4t22795.itcs.hpecorp.net
+c4t22796.itcs.hpecorp.net
+c4t22797.itcs.hpecorp.net
+
+https://c4t22795.itcs.hpecorp.net/health.html 
+
+-------------------------------------
+Prod H4 Apache servers
+
+https://c4t17228.itcs.hpecorp.net/health.html 
+https://c4t17230.itcs.hpecorp.net/health.html
+https://c4t17232.itcs.hpecorp.net/health.html
+
+---------------------------------------------------
+8 CentOS servers for Analysis (Aneesh)
+Servers have been deployed:
+
+ITG H4
+c9t23060.itcs.hpecorp.net
+c9t23062.itcs.hpecorp.net
+
+ITG H9
+c9t23059.itcs.hpecorp.net
+c9t23061.itcs.hpecorp.net
+
+Pro H4
+c4t23055.itcs.hpecorp.net
+c4t23056.itcs.hpecorp.net
+
+Pro H9
+c9t23057.itcs.hpecorp.net
+c9t23058.itcs.hpecorp.net?
+-------------------------------------------------
+REST servers
+c4t23152.itcs.hpecorp.net
+c4t23151.itcs.hpecorp.net
+-----------------------------------------
+
+
+
+

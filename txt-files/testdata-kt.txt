@@ -1,0 +1,82 @@
+
+http://15.244.144.11/SitePages/Create%20Asset.aspx	
+15.244.144.11
+	
+
+Below is the details we discussed in last session (Registration),
+
+?	Create central connect client and device – 
+-	To know details on product description, product number please look into product master link : https://rdma.corp.hp.com/ProductMaster.aspx
+-	To know about different environment URL and server names, please check in this link, https://rndwiki2.atlanta.hp.com/confluence/display/DevOps/Current+Configuration+Information 
+-	Product number, product description, collection type, OS information are linked fields, we need to know correct details before creating a device.
+?	Device / client registration,
+-	For client registration use below exe and syntax
+  C:\cmdLineTest\ClientRegistration.exe in server;        Syntax - ClientRegistration.exe ClientHostName
+-	Fir Device registration use below exe and syntax
+          C:\cmdLineTest\DeviceRegistration.exe in server;      Syntax - DeviceRegistration.exe DeviceHostName
+-	Please follow below steps when creating central connect client and device
+1)	ClientRegistration.exe   <ClientHostname>
+2)	MakeCLientVisible.exe   <ClientHostName>
+3)	DeviceRegistration.exe   <DeviceHostName>
+After this device and client should display in HPSC
+
+
+hpp_test10
+Pwd12345
+
+ITG1Client1Chandru.fc.hp.com
+ITG1Client1Chandru.fc.hp.com
+ITG1ChandruDevice
+
+
+emp-id: 60016358
+
+data.support@aircel.co.in
+9066006260
+
+
+Client:
+
+TD2670FUT2Client1.fc.hp.com
+2670SNCL01
+DUMEVA3000
+192.168.200.100
+Proliant DL360P Gen8
+Microsoft Windows Server 2008
+
+
+user-id= hpscnrs
+Pwd= Pwd12345
+FUT2
+
+
+-----------------
+Device CC
+Storage
+Windows Server, 2008 R2
+TD2670FUT2CCDevice1.bng.hp.com
+------------------------
+
+The video is   https://www.youtube.com/watch?v=U8GBXvdmHT4
+http://railsinstaller.org/en
+http://rubyonrails.org/index.html
+
+--------------------------------------
+DC device:
+
+TD2670FUT2DCD01.bng.hp.com
+2670SNDCD01
+DUMEVA4100
+--AP805A
+
+
+
+-------------------------
+COLLECTIONS:
+
+Device table: deviceTypeID -> 
+device collection table: devicetypeID -> get device model -> 
+Device collectionType table --> search for collection type ID respective to Device typeID
+
+
+

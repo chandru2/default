@@ -1,0 +1,14 @@
+In order to access the grub menu on a virtual machine, you need to hold the shift key down for a while. You must let your virtual machine to capture your mouse before holding the shift key. Follow the steps to change your password:
+
+1. Let your virtual Machine to capture your mouse.
+2. Hold the shift key down to get the grub menu.
+3. Select the recovery mode option.
+4. Select drop to root shell prompt.
+5. Now, change with # passwd [username] (You can also see the list of users using # nano /etc/passwd).
+
+Thanks for the instructions. It helped, although I had to go the extra mile and mount the file system as read-write right before changing the password:
+mount -rw -o remount /
+Without that, I got the errors:
+passwd: Authentication token manipulation error
+passwd: password unchanged
+The solution to this problem was posted here: http://askubuntu.com/questions/91188/authentication-token-manipulation-error

@@ -1,0 +1,44 @@
+cd ./${PLATFORM_PLAYBOOKS_PATH}
+
+echo $PLATFORM_VAULT_PW > password.txt
+
+# Insert git token
+sed -i.bak s/token_placeholder/${BOT_GIT_TOKEN}/g docker-requirements.yml
+
+ansible-galaxy install -r docker-requirements.yml --force
+
+sshpass -p ${SSH_PASSWORD} ansible-playbook  -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} \
+-k ./docker-sahome.yml --extra-vars "env=csaregression" \
+--vault-password-file ./password.txt
+
+rm -f password.txt
+--------------------------------------------------
+
+cd ./${PLATFORM_PLAYBOOKS_PATH}
+
+echo $PLATFORM_VAULT_PW > password.txt
+
+# Insert git token
+sed -i.bak s/token_placeholder/${BOT_GIT_TOKEN}/g docker-requirements.yml
+
+ansible-galaxy install -r docker-requirements.yml --force
+
+sshpass -p ${SSH_PASSWORD} ansible-playbook  -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} \
+-k ./docker-sahome.yml --extra-vars  "SPRING_PROFILES_ACTIVE=${SPRING_PROFILE} portal_sahome_version=${SAHOME_VERSION} docker_install_actions='no' " \
+--vault-password-file ./password.txt
+rm -f password.txt
+-------------------------------------------------------------------
+In Deploy ZK jenkins job execute shell:
+
+export http_proxy=http://web-proxy.corp.hpecorp.net:8080
+export https_proxy=http://web-proxy.corp.hpecorp.net:8080
+cd ./${PLATFORM_PLAYBOOKS_PATH}
+
+# Insert git token
+sed -i.bak s/token_placeholder/${BOT_GIT_TOKEN}/g docker-requirements.yml
+
+ansible-galaxy install -r docker-requirements.yml --force
+
+sshpass -p ${SSH_PASSWORD} ansible-playbook -b -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} \
+-k ./docker-zookeeper.yml --extra-vars "docker_install_actions=${DOCKER_UPDATE}"
+---------------------------------------------------

@@ -1,0 +1,123 @@
+Wow, that was fast
+
+Thanks and Regards
+
+John Smalle
+
+TS - IT
+Hewlett Packard European Software Centre Ballybrit Business Park Galway Ireland
+
+I  john.smalle@hp.com
+j  +353 (91) 754823
+
+Planned Holidays
+
+-----Original Message-----
+From: IT Service Manager
+Sent: 08 April 2015 11:01
+To: Smalle, John (TS R&D Galway)
+Subject: HPSM Support request SD21703889 is complete
+
+TO:
+john.smalle@hp.com                                                                                      
+
+The following HPSM Support request has been completed:
+To view more information about this Interaction, please click this URL:
+http://itsm-support.corp.hp.com/sm-ess/ess.do?ctx=docEngine&file=incidents&query=incident.id%3D%22SD21703889%22&action=&title=Interaction%20SD21703889        
+
+Request number: SD21703889                                                                              
+Title: Other domain - new ip request for John Smalle                                                    
+                                                                                                        
+Solution:                                                                                               
+Good day,                                                                                               
+                                                                                                        
+Your IP Request has been completed and the information is provided below.                               
+                                                                                                        
+If you have not already used our web-based forms, we invite you to make your future submissions via:    
+http://ipa.corp.hp.com                                                                                  
+                                                                                                        
+===================================================================================                     
+Here is the IP Information you requested:                                                               
+                                                                                                        
+Note: all changes to the network take effect within 3 hours of your receipt of this notification.       
+                                                                                                        
+FQDN IP Gateway Netmask                                                                                 
+devopsgithub01.irl.hp.com 16.49.41.50 16.49.40.1 255.255.252.0                                          
+devopsgithub02.irl.hp.com 16.49.41.51 16.49.40.1 255.255.252.0                                          
+                                                                                                        
+DNS Servers:                                                                                            
+16.110.135.51  resolver.hp.net                                                                          
+16.110.135.52  resolver.hp.net                                                                          
+                                                                                                        
+If you have questions or issues regarding an IP Request, please go to                                   
+http://ipa.corp.hp.com/escalations.aspx                                                                 
+===================================================================================                     
+                                                                                                        
+                                                                                                        
+Best Regards                                                                                            
+                                                                                                        
+“Thank you for contacting ITIO. We are committed to provide you with the best in class support        
+service. To submit a request or report an issue please use the formal ITIO process in Get IT            
+http://getit.hp.com. Within Get IT, you will be able to use Phone, Chat, or on-site support through     
+MyITPC”.                                                                                              
+                                                                                                        
+César Pelayo                                                                                           
+ITIO AOS AMS Network                                                                                    
+Hewlett-Packard                                                                                         
+                                                                                                        
+If issue is still unsolved, please call the service desk or log another request thru ESS.               
+                                                                                                        
+(This is an automatically generated message. Please do not reply to this e-mail.)  
+
+
+-------------------------------------
+
+
+DevOpsGithub01.irl.hp.com   - 15.194.234.19
+DevOpsGithub02.irl.hp.com   - 15.194.234.20
+       
+Gateway : 15.194.232.1
+
+Subnet mask : 255.255.248.0
+
+DNS servers :
+16.110.135.51
+16.110.135.52
+
+search emea.hpqcorp.net  irl.hp.com
+nameserver 16.110.135.51
+nameserver 16.110.135.52
+
+--------------------------------------------------------
+
+On some older systems (unlike Linux or Windows) you need to over-ride “dead gateway detection”.
+We ran into it with HPUX.  I suppose if you have old enough Linux running you might run into this as
+well.
+
+Here is what you might have to do:
+
+1.	route delete default 15.194.232.1
+2.	ndd -set /dev/ip ip_ire_gw_probe 0
+3.	route add default 15. 194.232.1 1
+(note the trailing 1 on that line, so that the route command doesn’t try to do its own validation of the gateway)
+
+Since that’s a transient ndd setting, you should also should set permanently as referenced in this blog:
+http://h30499.www3.hp.com/t5/Networking/Dead-gateway-detection-can-t-ping/td-p/5721249 
+
+The content of the steps are:
+To make the setting persistent over system reboots, you must also edit /etc/rc.config.d/nddconf file. If the nddconf file has no other uncommented settings in it, add these three lines:
+TRANSPORT_NAME[0]=ip
+NDD_NAME[0]=ip_ire_gw_probe
+NDD_VALUE[0]=0
+ If there are other uncommented settings in the file, add the same three lines but increment the number in [brackets] so that it does not conflict with any existing settings.
+
+This is basically since the default gateway would default to 15.194.232.0….but in the vlan implementations
+that is not true as listed in John’s email.
+
+We didn’t figure this out for days as we thought bad cable, bad drop, bad………  Then finally got it.
+Hope I can prevent some pain.
+
+Stewart
+-----------------------------------------------------------------------
+
+              

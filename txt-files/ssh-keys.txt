@@ -1,0 +1,34 @@
+sun model:
+test data
+
+
+
+deployment is the future goal
+
+
+ssh-keygen -t rsa 
+
+/root/.ssh/authorized_keys
+
+
+tar - untar in specific dir
+ -C directory
+         In c and r mode, this changes the directory before adding the
+         following files.  In x mode, change directories after opening the
+         archive but before extracting entries from the archive.
+i.e, tar xC /foo/bar -f /tmp/foo.tar.gz should do the job. (on FreeBSD, but GNU tar is basically the same in this respect, see "Changing the Working Directory" in its manual)
+
+
+
+
+No, you keep id_rsa to yourself; however, id_rsa.pub, which is your public key, may be copied to servers to which you wish to have access. Concatenate them onto the end of ~/.ssh/authorized_keys.
+Yes, you may create ~/.ssh/authorized_keys if it is not already created; otherwise, just append to the end of the file, using cat id_rsa.pub >>~/.ssh/authorized_keys.
+
+Also there is a tool that sorts all this for you called ssh-copy-id.
+
+It will append the key in your agent if you have one running to the authorized_keys file and create it if it does not exist with the right permissions. If you aren't running an agent you can specify the key to push with -i: ssh-copy-id -i ~/.ssh/id_rsa
+You should also check the permissions on the various files and directories:
+
+authorized_keys needs perms of 600 (chmod 600 authorized_keys)
+the .ssh directory should be 700
+your home directory should be at most 744

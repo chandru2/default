@@ -1,0 +1,79 @@
+# kafka
+.PHONY: all clean docker
+
+all: clean docker
+
+clean:
+	@echo ">> cleanup"
+
+docker:
+	@echo ">> docker release"
+	@docker build --file Dockerfile -t sa-docker-registry.itcs.hp.com/sa20/filebeat:1.1.0 .
+	@docker push sa-docker-registry.itcs.hp.com/sa20/filebeat:1.1.0
+---------------------------------------------------------------------------
+
+
+docker build --file <Dockerfile> -t <user>/<image> .
+
+docker build --file filebeat -t filebeat .
+docker build -f filebeat_dockerfile -t filebeat .
+
+docker logs <container name>
+----------------------------------------
+
+622e616ad3fe: Pull complete
+d55e9d33c23c: Pull complete
+9f49a63658d8: Pull complete
+4b9ff1038607: Pull complete
+Digest: sha256:0acb62342ee582e06d7ea85e4b758a02b0aa6bcb358e09ac1b033ebec41194a9
+Status: Downloaded newer image for sonarqube:latest
+ ---> 4b9ff1038607
+Step 2 : MAINTAINER Chandrashekar Angadi Veerappa <chandru.av@hpe.com>
+ ---> Running in 9677fa478b1b
+ ---> a87f85475836
+Removing intermediate container 9677fa478b1b
+Step 3 : MAINTAINER angadic
+ ---> Running in 669c2c4e0e9a
+ ---> dab614412792
+Removing intermediate container 669c2c4e0e9a
+Step 4 : ENV http_proxy http://web-proxy.corp.hpecorp.net:8080
+ ---> Running in a277b6b933ce
+ ---> 99ec14ab2bd6
+Removing intermediate container a277b6b933ce
+Step 5 : ENV https_proxy http://web-proxy.corp.hpecorp.net:8080
+ ---> Running in 583267dbd2c8
+ ---> 8b0f3d094567
+Removing intermediate container 583267dbd2c8
+Step 6 : EXPOSE 9000
+ ---> Running in b05fbf3f9d8b
+ ---> 3f9aa0013f30
+Removing intermediate container b05fbf3f9d8b
+Step 7 : WORKDIR /opt/sonarqube/
+ ---> Running in 94eb8153dad9
+ ---> 0dca37390355
+Removing intermediate container 94eb8153dad9
+Step 8 : ENTRYPOINT /opt/sonarqube/bin/run.sh
+ ---> Running in b4dae8f151d6
+ ---> d239dd8fc0c8
+Removing intermediate container b4dae8f151d6
+Successfully built d239dd8fc0c8
+The push refers to a repository [sa-docker-registry.itcs.hpecorp.net/sa20/sonarqube-464a94d] (len: 1)
+d239dd8fc0c8: Pushed
+0dca37390355: Pushed
+3f9aa0013f30: Pushed
+8b0f3d094567: Pushed
+99ec14ab2bd6: Pushed
+dab614412792: Pushed
+a87f85475836: Pushed
+9f49a63658d8: Pushed
+6826ae21cd8b: Pushed
+d7f8aa0abe75: Pushed
+26150110f4d8: Pushed
+f51a5a26e10a: Pushed
+a96cd57ee59b: Pushed
+229aba7c8c65: Pushed
+e167c026a01b: Pushed
+003124e47cbd: Pushed
+3d7d0c417e1d: Pushed
+latest: digest: sha256:9c837adcb273a155e6dec4d724dca7039d0822efd24fb4aba52553418754d894 size: 68946
+[root@c4t20957 TestCI1]#

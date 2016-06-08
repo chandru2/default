@@ -1,0 +1,13 @@
+assuming that restartapache is an exec task that calls the apache restart command. Eg:
+
+<target name="restartapache" description="Restarts the web server">
+    <exec command="/etc/init.d/apache2 restart" />
+</target>  
+To avoid the sudo command prompting for a password you can update your sudo permissions for whatever user account you are running your build under (this example demonstrates turning off the sudo password prompt for the jenkins user):
+
+sudo visudo
+Then add the following lines:
+
+Defaults:jenkins !requiretty,!lecture
+jenkins ALL=NOPASSWD:/etc/init.d/apache2
+The above has been edited to improve security according to this answer so that Jenkins is only allowed to restart apache without a password and nothing else.

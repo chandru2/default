@@ -1,0 +1,8 @@
+
+Start an HTTP server with ruby -run
+
+Ruby 2.0 has a library called "un", which you can require with the require flag "-r" (-run). The library contains a few helpers for OS-agnostic operations such as creating directories, touching files, etc...
+
+One of the helpers, httpd, runs an HTTP server with the passed directory name. To serve the current directory:
+
+ruby -run -e httpd . -p 5000

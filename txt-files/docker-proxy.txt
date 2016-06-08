@@ -1,0 +1,25 @@
+OK, quick issue, due to the recent Docker 1.5.
+
+It added that docker/docker#9951 (cf. changelog : https://github.com/docker/docker/blob/master/CHANGELOG.md#150-2015-02-10, last item of 1.5.0).
+The documentation is here : docker/docker#10192
+
+So in my case :
+
+docker@boot2docker:~$ docker -H tcp://localhost:2375 ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+docker@boot2docker:~$ docker -H unix:///var/run/docker.sock ps
+FATA[0000] Error response from daemon: 404 page not found
+docker@boot2docker:~$ unset HTTP_PROXY
+docker@boot2docker:~$ unset HTTPS_PROXY
+docker@boot2docker:~$ unset NO_PROXY
+docker@boot2docker:~$ env | grep proxy
+no_proxy=localhost,127.0.0.1,.my-domain.com
+https_proxy=http://my-proxy:3128
+http_proxy=http://my-proxy:3128
+docker@boot2docker:~$ export no_proxy=$no_proxy,/var/run/docker.sock
+docker@boot2docker:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+docker@boot2docker:~$ export no_proxy=localhost,127.0.0.1,.my-domain.com,.sock
+docker@boot2docker:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+It's not related to the vagrant-proxyconf directly, but we can enhance user experience by adding a pattern like ,.sockor /var/run/docker.sock in no_proxy vars for the Docker part ?

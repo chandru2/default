@@ -1,0 +1,32 @@
+SOLVED.
+
+Apparently, the problem indeed was the misconfigured Rails app. Here's what I found in nginx's error.log:
+
+Exception RuntimeError in Rack application object (Missing `secret_token` and `secret_key_base` for 'production' environment, set these values in `config/secrets.yml`)
+
+Previously Passenger would give more information on why it couldn't start the Rails app. Apparently, the new message replaced that page.
+
+On Monday, March 16, 2015 at 10:07:29 AM UTC+7, Max Gorin wrote:
+I'm having the same problem. I can add, that I currently have 3 unix users, each having a Rails app in their respective home directory. Only one of the 3 apps (
+which was set up as first) is being served properly by Passenger, the other 2 giving "Incomplete response received from application" (both in the browser and with curl), both of them set up with a vanilla, 
+freshly generated Rails app.
+
+--------------------------------------------------------
+
+RackEnv development
+<VirtualHost *:80> 
+ ServerName www.yourhost.com 
+ # !!! Be sure to point DocumentRoot to 'public'! 
+ DocumentRoot /var/www/html/helloapp/public 
+ <Directory /var/www/html/helloapp/public> 
+ # This relaxes Apache security settings. 
+ AllowOverride all 
+ # MultiViews must be turned off. 
+ Options -MultiViews 
+ </Directory> 
+</VirtualHost> 
+------------------------------
+setenforce 0
+
+gem install executable-hooks -v ">=1.3.2" 
+gem regenerate_binstubs

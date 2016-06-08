@@ -1,0 +1,22 @@
+gnutls-cli --print-cert githubenterprize2-0.irl.hp.com </dev/null| sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /usr/local/share/ca-certificates/githubenterprize2-0.irl.hp.com.crt
+
+
+ Setup github enterprise certificate
+RUN apt-get install gnutls-bin -y
+RUN gnutls-cli --print-cert githubenterprize2-0.irl.hp.com </dev/null| sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /usr/local/share/ca-certificates/githubenterprize2-0.irl.hp.com.crt
+RUN update-ca-certificates
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

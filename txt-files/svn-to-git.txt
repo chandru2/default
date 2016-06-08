@@ -1,0 +1,23 @@
+https://github.com/nirvdrum/svn2git
+
+
+svn log --quiet https://csvnhou-pro.houston.hp.com:18490/svn/sa_hpsc-tsrd/source/trunk/sp4ts-device/ --username sridhar.ramamurthy | grep -E "r[0-9]+ \| .+ \|" | cut -d'|' -f2 | sed 's/ //g' | sort | uniq
+
+
+svn log --quiet https://csvnhou-pro.houston.hp.com:18490/svn/sa_hpsc-tsrd --username sridhar.ramamurthy | grep -E "r[0-9]+ \| .+ \|" | cut -d'|' -f2 | sed 's/ //g' | sort | uniq
+
+svn2git https://csvnhou-pro.houston.hp.com:18490/svn/sa_hpsc-tsrd/source/trunk/sp4ts-device/ --no-minimize-url --authors /home/ramamsri/authors.txt  --username sridhar.ramamurthy
+
+svn2git https://csvnhou-pro.houston.hp.com:18490/svn/sa_hpsc-tsrd --trunk source/trunk/sp4ts-device  --nobranches --notags  --authors /home/ramamsri/authors.txt
+
+
+svn2git https://csvnhou-pro.houston.hp.com:18490/svn/sa_hpsc-tsrd   --nobranches --notags  --authors /home/ramamsri/authors.txt
+
+
+svn2git https://csvnhou-pro.houston.hp.com:18490/svn/sa_hpsc-tsrd --trunk source/trunk/sp4ts-device  --nobranches --notags  --authors /c/Users/ramamsri/authors.txt
+
+
+
+
+cat xx |sed -e 's/^[[:space:]]//g'  -e 's/ALM//g' | awk -F')' '{ print $1 ")="$2 }'
+

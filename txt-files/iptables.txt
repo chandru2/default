@@ -1,0 +1,59 @@
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins
+
+
+iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
+
+$ sudo iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+$ sudo service iptables save
+
+sudo service jenkins start/stop/restart
+sudo chkconfig jenkins on
+Note: if you get the following error message, ensure that Java has been installed:
+
+Starting jenkins (via systemctl):  Job for jenkins.service failed. See 'systemctl status jenkins.service' and 'journalctl -xn' for details.
+                                                           [FAILED]
+What does this package do?
+Jenkins will be launched as a daemon on start up. See /etc/init.d/jenkins for more details.
+The 'jenkins' user is created to run this service. If you change this to a different user via the config file, you must change the owner of /var/log/jenkins, /var/lib/jenkins, and /var/cache/jenkins.
+Log file will be placed in /var/log/jenkins/jenkins.log. Check this file if you are troubleshooting Jenkins.
+/etc/sysconfig/jenkins will capture configuration parameters for the launch.
+By default, Jenkins listen on port 8080. Access this port with your browser to start configuration.  Note that the built-in firewall may have to be opened to access this port from other computers.  (See http://www.cyberciti.biz/faq/disable-linux-firewall-under-centos-rhel-fedora/ for instructions how to disable the firewall permanently)
+A Jenkins RPM repository is added in /etc/yum.repos.d/jenkins.repo
+Disable the firewall
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
+firewall-cmd --zone=public --add-service=http --permanent
+firewall-cmd --reload
+firewall-cmd --list-all
+---------------------------------------------
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo 
+$ sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key 
+$ sudo yum install jenkins
+
+00000030832339975
+
+
+yum install yum-plugin-remove-with-leaves
+
+When you are removing a package, do
+
+yum remove *packagename* --remove-leaves
+This should get rid packages that were installed as dependencies but not needed anymore. This command works similar to apt-get autoremove
+
+Note: Pay close attention to what packages yum wants to remove to avoid having a broken system (albeit rarely)
+
+
+-------------------------------------------------------------------
+to test
+iptables -A INPUT -p sctp --dport 80 -j DROP
+-------------------------------------------------------------------
+
+Out traffic
+ iptables -A OUTPUT -p tcp --sport 18490 -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+iptables -A OUTPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+
+
+
+

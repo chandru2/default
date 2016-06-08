@@ -1,0 +1,61 @@
+
+services/capability-access-manager/capability-access-manager-rest/target/classes
+services/capability-access-manager/capability-access-manager-rest/target/test-classes
+services/capability-access-manager/capability-access-manager-rest/target/surefire-reports 
+services/capability-access-manager/capability-access-manager-rest/src/main/java
+
+
+sonar.projectKey=LCAM:project
+sonar.projectName=LCAM
+sonar.projectVersion=${BUILD_NUMBER}-${BUILD_ID}-${GIT_COMMIT}-${GIT_BRANCH}
+sonar.sources=src/main/java
+sonar.host.url=http://c4t20993.itcs.hpecorp.net:9002/
+sonar.language=java
+sonar.binaries=target/classes
+sonar.junit.reportsPath=
+sonar.java.surefire=target/surefire-reports
+sonar.java.coveragePlugin=jacoco
+-------------
+sonar.jdbc.dialect=mssql
+sonar.projectKey=projectname
+sonar.projectName=Project Name
+sonar.projectVersion=1.0
+sonar.sources=src
+sonar.language=java
+sonar.binaries=build/classes
+sonar.tests=junit
+sonar.dynamicAnalysis=reuseReports
+sonar.junit.reportsPath=build/test-reports
+sonar.java.coveragePlugin=jacoco
+sonar.jacoco.reportPath=build/test-reports/jacoco.exec
+----------------------------------------------
+
+clean install  jacoco:prepare-agent test jacoco:report sonar:sonar -P CI -Dbuild.number=${BUILD_NUMBER} -Dbuild.revision=${GIT_COMMIT} -Dbuild.branch=${GIT_BRANCH} -Dbuild.tag=${VERSION_NUMBER}
+
+----------------------------------------------------------------------
+
+There is a big difference between sonar.junit.reportPath and sonar.jacoco.reportPath. You are mixing up the values.
+
+Similarly, there's sonar.jacoco.itReportPath (for non-Unit tests based jaocco.exec files for ex: jacocoIT.exec (if you are creating for Integration tests).
+
+Now, Depending upon the version of sonarQube instance (4.x or latest 5.x.x), you may need to set either sonar.junit.reportPath or sonar.java.junit.reportPath to the value (which is the folder containing the .xml data).
+
+
+
+For ex: If my Unit tests or Integration tests folder's result files (.xmls) are in folder build/test-results/UT folder,
+then:
+
+sonar.java.junit.reportPath=build/test-results/UT OR
+sonar.junit.reportPath=build/test-results/UT
+
+For the code coverage file (.exec), you have to use:
+sonar.jacoco.reportPath=build/jacoco/UT/jacocoUT.exec   OR
+sonar.jacoco.itReportPath=build/jacoco/IT/jacocoIT.exec
+
+Important - Sonar Properties:
+sonar.jacoco.xxx points to the filename.
+sonar.junit.xxx or sonar.java.junit.xxx points to a folder name.
+sonar.surefire.xxx or sonar.java.surefire.xxx points to a folder name.
+Similar to sonar.junit.reportPath, there's also another property called: sonar.surefire.reportPath or sonar.java.surefire.reportPath. Look for Sonar docs for more help under Analyzing Source code with Maven/Gradle.
+http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code (expand it).
+

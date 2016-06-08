@@ -1,0 +1,23 @@
+
+
+UI
+
+Login information
+Guide lines
+release information
+type of devices
+enviornment
+
+
+
+DATA INPUTS
+
+
+DATA OUT PUT
+
+USER VERIFICATION
+
+
+LIFE OF REQUEST
+
+

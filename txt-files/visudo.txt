@@ -1,0 +1,20 @@
+Granting Sudo Privileges to a User
+If your new user should have the ability to execute commands with root (administrative) privileges, you will need to give the new user access to sudo.
+
+We can do this by adding the user to the wheel group (which gives sudo access to all of its members by default) through the gpasswd command. This is the safest and easiest way to manage sudo user rights.
+
+If you are currently signed in as the root user, type:
+
+gpasswd -a username wheel
+If you are signed in using a non-root user with sudo privileges, type this instead:
+
+sudo gpasswd -a username wheel
+Now your new user is able to execute commands with administrative privileges. To do so, simply type sudo ahead of the command that you want to execute as an administrator:
+
+sudo some_command
+
+
+sudo lid -g wheel  list all users in the group wheel
+-------------------------------------------------
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdnZQD8Guj3o2zfnVtjdUZSB6h0PwGv72RlGNpoaa0vf8tRyRbWGgzCfQcTKFA3jLKHOeIXO5KZQ5iHFrauC9c2nUyjH7QncV2azDf+y                                                xCfZ9hlEZTsHMhfzcJ9a2U6MPWKeGb2kiRrM/9NoncCWaMp0uOPASJS3uYW2/95GQnJpcfUpDyrkPcNXezf41bJ7fRF6zd0uvz0YB3wQy3DiM1DhWOd5DUpzQX6qzgHRYDiX/Z123LsUEe                                                749ylvFY9Q9KdLqcLVdnMhuZ95z03hesndfI8LTkFpRWWHmszwe7LspljhChaAKq4sVaJlaoebjtxuNYboWV2Q0re9F8G9xP jenkins@c4t20957

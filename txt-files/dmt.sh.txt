@@ -1,0 +1,79 @@
+#!/bin/bash
+
+############################################################
+#Author : Chandrashekar Angadi [chandru.av@hp.com]
+############################################################
+
+jenkins_workspace=/var/lib/jenkins/jobs/dmt-test-build/workspace
+apache_webapp=/var/www/webapps
+error_log=/var/www/webapps/scripts/log/
+time=`date +%d%y%h%s`
+project=dmt
+ruby_path=/usr/local/rvm/gems/ruby-1.9.3-p551/bin
+doc_root=$apache_webapp/$project
+apache_conf=/etc/httpd/conf.d
+
+
+echo
+echo "................................................................."
+echo "[$time] Cheking $project application  deployments. "
+echo "................................................................."
+echo
+
+
+if [ -d $apache_webapp/$project ] ; then
+        echo "Backup of current DMT deployment [$apache_webapp/$project] is in-progress .......... "
+        cd $apache_webapp/$project ; echo "current dir `pwd`"
+        sudo tar -cvf  /root/dmt_backup/$project$time.tar . 2> /dev/null
+        test $? -eq 0 && { echo "Backup taken successfully" ; } || { echo "Backup FAILED ........" ; }
+else
+        echo
+        echo "Creating web application directory ......."
+        sudo mkdir -p $apache_webapp/$project
+        #sudo chown -R apache:root $apache_webapp/*
+        #sudo chmod -R 775 $apache_webapp/*
+        test $? -eq 0 && { echo "Directory [$apache_webapp/$project] created succssfully" ; } || { echo "Create dir [$apache_webapp/$project] FAILED.." ; }
+fi
+
+
+
+
+
+echo "................................................................."
+echo "Copying Jenkins workspace files to apache deployment directory"
+echo "................................................................."
+echo "From [$jenkins_workspace/] to [$apache_webapp/$project]"
+
+
+if [ -d $apache_webapp/$project/app ] ; then
+        sudo cp -Rf $jenkins_workspace/app $apache_webapp/$project
+        sudo cp -Rf $jenkins_workspace/config $apache_webapp/$project
+        sudo cp -Rf $jenkins_workspace/db $apache_webapp/$project
+        echo "Copyng of app, config and db is  done"
+else
+        sudo cp -Rf $jenkins_workspace/* $apache_webapp/$project
+        echo "Copying of workspace is done"
+        cd $apache_webapp/$project
+        echo "................................................................."
+        echo "running budle installi in [`pwd`]"
+        echo "................................................................."
+        $ruby_path/bundle install && $ruby_path/rake db:migrate && { echo "Bundle and Rake successful"; } || { echo "Budle or Rake Failed. Pls. check the logs" ; }
+        #test $? -eq 0 && { echo "Bundle is successful" ; } || { echo "bundle or Rake failed" ; }
+fi
+
+
+echo "................................................................."
+echo "Creating $project VirtualHost .."
+sed -e "s|%%doc_root%%|$doc_root|" -e "s|%%svr_name%%|`hostname`|"  < $apache_webapp/scripts/site.conf > $apache_conf/$project.conf
+test $? -eq 0 && { echo "$project VirtualHost created" ; } || { echo "$project VirtualHost creation failed" ; }
+echo "................................................................."
+
+sudo chown -R apache:root $apache_webapp/*
+sudo chmod -R 775 $apache_webapp/*
+
+echo
+echo "Re-starting Apache Server  .........."
+sudo /sbin/service httpd restart
+echo
+echo "$project deployment successful ..."
+

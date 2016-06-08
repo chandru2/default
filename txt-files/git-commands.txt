@@ -1,0 +1,18 @@
+
+
+Branches:
+List branches
+git branch 
+git branch -v
+
+git branch --merged
+git branch --no-merged
+
+Delete Branch:
+git branch -d <branch-name>
+git branch -D <branch-name>    Forced delete
+git push origin --delete <branch-name>
+
+
+git ls-remote
+git config --global credential.helper cache

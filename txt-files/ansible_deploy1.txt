@@ -1,0 +1,84 @@
+You are here: Home / Linux / Install EPEL repo on CentOS 7 and RHEL 7
+Install EPEL repo on CentOS 7 and RHEL 7
+September 7, 2014 by sharad chhetri Leave a Comment
+
+In this post we will learn how to install EPEL repo on CentOS 7 and RHEL 7. On our previous post of “How to install EPEL repo in CentOS/Scientific Linux/Red Hat” , we have already written about EPEL repo.
+
+
+AD
+Get Quality Dental Care
+Sponsored by Revenue.com
+Save on dental care including root canals, braces and more!
+ 
+Extra Packages for Enterprise Linux (or EPEL) is a Fedora Special Interest Group that creates, maintains, and manages a high quality set of additional packages for Enterprise Linux, including, but not limited to, Red Hat Enterprise Linux (RHEL), CentOS and Scientific Linux (SL), Oracle Enterprise Linux (OEL). (Reference : EPEL)
+
+Install EPEL repo on CentOS 7 / RHEL 7
+
+Method 1 : By directly using yum command
+On CentOS 7, we have found without downloading the epel-release RPM package(as we used to do on previous O.S releases), we can install it by using yum command.
+
+yum install epel-release
+See below given reference from our system.
+
+[root@localhost ~]# yum install epel-release
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.excellmedia.net
+ * extras: centos.excellmedia.net
+ * updates: centos.excellmedia.net
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=================================================================================================================================================
+ Package                                Arch                             Version                          Repository                        Size
+=================================================================================================================================================
+Installing:
+ epel-release                           noarch                           7-2                              extras                            13 k
+
+Transaction Summary
+=================================================================================================================================================
+Install  1 Package
+
+Total download size: 13 k
+Installed size: 22 k
+Is this ok [y/d/N]: y
+Downloading packages:
+epel-release-7-2.noarch.rpm                                                                                               |  13 kB  00:00:05     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-2.noarch                                                                                                       1/1 
+  Verifying  : epel-release-7-2.noarch                                                                                                       1/1 
+
+Installed:
+  epel-release.noarch 0:7-2                                                                                                                      
+
+Complete!
+[root@localhost ~]#
+Method 2: Download epel-release rpm package then install
+Visit the link of EPEL repo and find the package name called epel-release-x-x.noarch.rpm (here x-x is version number)
+Download the epel-release-x-x.noarch.rpm package from epel repo url and install with the help of rpm command.
+
+EPEL repo URL for 7 version(Enterprise Linux version) : http://dl.fedoraproject.org/pub/epel/7/
+
+For x86_64 Operating System architecture:
+
+yum install wget
+wget -r --no-parent -A 'epel-release-*.rpm' http://dl.fedoraproject.org/pub/epel/7/x86_64/e/ 
+rpm -Uvh dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-*.rpm
+Method 3: Directly installing from HTTP by using rpm command
+
+By directly using rpm command with http URL address(for x86_64),you can also install epel-release package. Make sure, to get the correct HTTP address from EPEL’s URL
+
+rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-2.noarch.rpm
+File Created after epel installation
+
+After installation of epel rpm package. The two files will be created.
+
+1. /etc/yum.repos.d/epel.repo
+2. /etc/yum.repos.d/epel-testing.repo

@@ -1,0 +1,58 @@
+# Rails Environment Configuration.
+
+Your git configuration is incomplete.
+user.name and user.email are required for properly using git and services such
+as GitHub ( http://github.com/ ).
+
+ Please enter your name, for example mine is: Wayne E. Seguin
+name > Chandrashekar Angadi
+Setting user.name to Chandrashekar Angadi
+
+ Please enter your email address, for example mine is: wayneeseguin@gmail.com
+email > avchandru@gmail.com
+Setting user.email to avchandru@gmail.com
+
+---
+git:
+  user.name:  Chandrashekar Angadi
+  user.email: avchandru@gmail.com
+  version:    git version 1.9.4.msysgit.1
+
+ruby:
+  bin:        C:/RailsInstaller/Ruby1.9.3/bin/ruby.exe
+  version:    ruby 1.9.3p545 (2014-02-24) [i386-mingw32]
+
+rails:
+  bin:        C:/RailsInstaller/Ruby1.9.3/bin/rails.bat
+  version:    Rails 3.2.19
+
+HTTP_PROXY=http://web-proxy.fc.hp.com:8080
+
+
+ssh:
+  public_key_location: C:\Users\angadic/.ssh/id_rsa.pub
+  public_key_contents: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCgVrVfesYeWvnJw7XRR
+aJe4Yj21JgedZW1TlFK1FIx8sPKc1W+ds4kvRBLv3QTG1jPv8KrOPzjbZOYKOQBB3oboc2nWlJ4y0Qjw
+TmT2/iB5FJHcojYKOqlnnHn/h1C2H6lXxiP/QinxyesC4VgJTP2pomaqWHLa+8IH5ZifbzwSQqe3APA9
+1FYDnHgKfxTOjHQBHwq6faj5GVv4blwecL4FQZtEez4VbADQ5fvKhOAXHA+z6WzwQ3Xe7UgfLN1m2bPQ
+OlTLdZQXjAEyj7704/n/vi0c9VTC1p/r2sg234bdOvMHa9sY/3UAWbrrQ0iUreYd7Z1pwmVxkAUPIpf4
+FUF Chandrashekar Angadi <avchandru@gmail.com>
+
+
+NOTES:
+
+  Your public ssh key (id_rsa.pub) has been automatically generated and copied t
+o your clipboard.
+
+
+C:\Sites>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCgVrVfesYeWvnJw7XRRaJe4Yj21JgedZW
+1TlFK1FIx8sPKc1W+ds4kvRBLv3QTG1jPv8KrOPzjbZOYKOQBB3oboc2nWlJ4y0QjwTmT2/iB5FJHcoj
+YKOqlnnHn/h1C2H6lXxiP/QinxyesC4VgJTP2pomaqWHLa+8IH5ZifbzwSQqe3APA91FYDnHgKfxTOjH
+QBHwq6faj5GVv4blwecL4FQZtEez4VbADQ5fvKhOAXHA+z6WzwQ3Xe7UgfLN1m2bPQOlTLdZQXjAEyj7
+704/n/vi0c9VTC1p/r2sg234bdOvMHa9sY/3UAWbrrQ0iUreYd7Z1pwmVxkAUPIpf4FUF Chandrashe
+kar Angadi <avchandru@gmail.com>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCgVrVfesYe
+WvnJw7XRRaJe4Yj21JgedZW1TlFK1FIx8sPKc1W+ds4kvRBLv3QTG1jPv8KrOPzjbZOYKOQBB3oboc2n
+WlJ4y0QjwTmT2/iB5FJHcojYKOqlnnHn/h1C2H6lXxiP/QinxyesC4VgJTP2pomaqWHLa+8IH5Zifbzw
+SQqe3APA91FYDnHgKfxTOjHQBHwq6faj5GVv4blwecL4FQZtEez4VbADQ5fvKhOAXHA+z6WzwQ3Xe7Ug
+fLN1m2bPQOlTLdZQXjAEyj7704/n/vi0c9VTC1p/r2sg234bdOvMHa9sY/3UAWbrrQ0iUreYd7Z1pwmV
+xkAUPIpf4FUF Chandrashekar Angadi <avchandru@gmail.com>

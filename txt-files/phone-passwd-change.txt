@@ -1,0 +1,30 @@
+Dial: #113
+Dial <918033837732> and press #
+Dial <3837732> and press #
+
+
+Dial <new security code> (7 digits) and press #
+2426378
+Dial <new security code> again and press # to confirm
+2426378
+You should hear 3 confirmation beeps.
+
+
+
+--------------
+
+---------------
+Procedure to Log a ticket for New Extension:
+Log into Solution Source through the below mentioned link:
+http://intranet.hp.com/HPIT/GetIT/solutionsource/Pages/index.aspx
+Follow the below mentioned path:
+Telephone & Voice Services > Office Voice > Office Voice / Voice Mail (Global) – New
+
+Please mention the following details in the summary: 
+
+1. Model of the Phone
+2. Sample Extension Number (Extension of any of your colleague similar to the one you want us to configure):
+3. Phone Location(Floor/Pillar/Row/Port Number):
+4. Physical Phone Present: Yes / No 
+5. If Physical Phone required then have you checked with your Department Head / Manager? Every desk on the floor for your site has been provided with a physical phone.
+

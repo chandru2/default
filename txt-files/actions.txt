@@ -1,0 +1,5 @@
+Trainings
+work on user stoires
+Test lab setp action item has to resolve
+share the assets issues
+Smoke test env issues

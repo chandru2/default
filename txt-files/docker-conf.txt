@@ -1,0 +1,76 @@
+other_args=
+export http_proxy='http://web-proxy.corp.hp.com:8080/'
+other_args='-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock -dns 16.110.135.51 -dns 16.110.135.52 --insecure-registry registry.itcs.hp.com'
+
+ExecStart=/usr/bin/docker daemon -H fd://
+
+---------------
+
+[Unit]
+Description=Docker Application Container Engine
+Documentation=https://docs.docker.com
+After=network.target docker.socket
+Requires=docker.socket
+
+[Service]
+Type=notify
+EnvironmentFile=-/etc/sysconfig/docker
+EnvironmentFile=-/etc/sysconfig/docker-storage
+EnvironmentFile=-/etc/sysconfig/docker-network
+Environment=GOTRACEBACK=crash
+ExecStart=/usr/bin/docker daemon $OPTIONS \
+          $DOCKER_STORAGE_OPTIONS \
+          $DOCKER_NETWORK_OPTIONS \
+          $ADD_REGISTRY \
+          $BLOCK_REGISTRY \
+          $INSECURE_REGISTRY
+
+#ExecStart=/usr/bin/docker daemon -H fd://
+MountFlags=slave
+LimitNOFILE=1048576
+LimitNPROC=1048576
+LimitCORE=infinity
+
+[Install]
+WantedBy=multi-user.target
+--------------------------------
+
+yum --showduplicates list docker-engine | expand
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+Installed Packages
+docker-engine.x86_64                 1.9.1-1.el7.centos                  @docker
+Available Packages
+docker-engine.x86_64                 1.7.0-1.el7.centos                  docker
+docker-engine.x86_64                 1.7.1-1.el7.centos                  docker
+docker-engine.x86_64                 1.8.0-1.el7.centos                  docker
+docker-engine.x86_64                 1.8.1-1.el7.centos                  docker
+docker-engine.x86_64                 1.8.2-1.el7.centos                  docker
+docker-engine.x86_64                 1.8.3-1.el7.centos                  docker
+docker-engine.x86_64                 1.9.0-1.el7.centos                  docker
+docker-engine.x86_64                 1.9.1-1.el7.centos                  docker
+docker-engine.x86_64                 1.10.0-1.el7.centos                 docker
+docker-engine.x86_64                 1.10.1-1.el7.centos                 docker
+docker-engine.x86_64                 1.10.2-1.el7.centos                 docker
+Trying to install the last 1.9.x release works fine. ie.
+
+$ yum install docker-engine-1.9.1-1.el7.centos
+Will successfully install that version of Docker.
+-----------------------------------------------------
+
+In CentOS 6.5
+
+service docker stop
+mkdir /data/docker  (new directory)
+vi /etc/sysconfig/docker
+add following line
+
+other_args=" -g /data/docker -p /var/run/docker.pid"
+then save the file and start docker again
+
+service docker start
+and will make repository file in /data/docker
+---------------------------------------
+
+It seems Epel now has openjdk 1.8.0_25. So this is no longer an issue. 
+Install sudo yum install java-1.8.0-openjdk-devel if you need the jdk instead of the jre.
