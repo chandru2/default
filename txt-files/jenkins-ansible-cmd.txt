@@ -1,0 +1,104 @@
+
+
+echo $INTEGRATION_VAULT_PW > password.txt
+
+cp ${INTEGRATION_PLAYBOOKS_PATH}/ansible.cfg ansible.cfg
+
+# deploy sa-index (with different user)
+if [ "${TAGS}" = "all" ] || [ "${TAGS}" = "sa-index" ]; then
+	
+	sshpass -p ${EDGE_SSH_PASSWORD} ansible-playbook -i ./inventories/${HOST_FILE} -u ${EDGE_SSH_USERNAME} \
+    -k ${INTEGRATION_PLAYBOOKS_PATH}/sa-index.yml \
+	--extra-vars "sa_index_batch_version=${VERSION} sa_index_repo=releases" \
+    --vault-password-file ./password.txt --tags=${TAGS}
+fi
+
+# deploy sa-index-km (with different user)
+if [ "${TAGS}" = "all" ] || [ "${TAGS}" = "sa-indexer-km" ]; then
+
+	# Check if index exists, if not exit
+	#resp=$(curl -s -w "%{http_code}" -o /dev/null -XHEAD -i "http://$elastichost:9200/${KM_INDEX_NAME}")
+	#if [ "$resp" != 200 ]; then
+	#	exit 1
+	#fi
+    
+	if [ "${KM_INDEXER_RESET_TIMESTAMP}" = "yes" ]; then
+		KM_COPY_VALUE="-f"
+	else
+		KM_COPY_VALUE="-n"
+	fi
+
+	sshpass -p ${KM_SSH_PASSWORD} ansible-playbook -i ./inventories/${HOST_FILE} -u ${KM_SSH_USERNAME} \
+	-k ${INTEGRATION_PLAYBOOKS_PATH}/sa-index-km.yml \
+	--extra-vars "docker_install_actions=${DOCKER_UPDATE} skip_sudo_tasks=no km_indexer_version=${VERSION} km_index_name=${KM_INDEX_NAME} stamp_copy_options=${KM_COPY_VALUE} " \
+	--vault-password-file ./password.txt --tags=${TAGS}
+fi
+
+# deploy sa-index-sw (with different user)
+if [ "${TAGS}" = "all" ] || [ "${TAGS}" = "sa-indexer-sw"  ]; then
+	
+    # Check if index exists, if not exit
+	#resp=$(curl -s -w "%{http_code}" -o /dev/null -XHEAD -i "http://$elastichost:9200/${SW_INDEX_NAME}")
+	#if [ "$resp" != 200 ]; then
+	#	exit 1
+	#fi
+    
+	if [ "${SW_INDEXER_RESET_TIMESTAMP}" = "yes" ]; then
+		SW_COPY_VALUE="-f"
+	else
+		SW_COPY_VALUE="-n"
+	fi
+
+	sshpass -p ${KM_SSH_PASSWORD} ansible-playbook -i ./inventories/${HOST_FILE} -u ${KM_SSH_USERNAME} \
+	-k ${INTEGRATION_PLAYBOOKS_PATH}/sa-index-sw.yml \
+	--extra-vars "sw_indexer_version=${VERSION} sw_index_name=${SW_INDEX_NAME} stamp_copy_options=${SW_COPY_VALUE} " \
+	--vault-password-file ./password.txt --tags=${TAGS}
+fi
+
+# deploy everything other than indexers as sa20
+if [ "${TAGS}" != "sa-index" ] && [ "${TAGS}" != "sa-indexer-km" ] && [ "${TAGS}" != "sa-indexer-km" ]; then
+	# Insert git token
+	sed -i.bak s/token_placeholder/${BOT_GIT_TOKEN}/g ${INTEGRATION_PLAYBOOKS_PATH}/docker-requirements.yml
+
+	ansible-galaxy install -r ${INTEGRATION_PLAYBOOKS_PATH}/docker-requirements.yml --force
+    
+# deploy only sa-hpesc-search-rest with centos   
+  if [ "${TAGS}" = "sa-hpesc-search-rest" ]; then
+    if [ "${HOST_FILE}" = "hdp-fut1" ]; then
+    ansible-playbook -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} ${INTEGRATION_PLAYBOOKS_PATH}/docker-sahpescsearchrest.yml --vault-password-file ./password.txt --extra-vars "portal_sahpescsearch_rest_version=${VERSION}  docker_install_actions='${RE-DOCKER_UPDATE}' pbrun_command='/bin/sudo' "
+    else
+     sshpass -p ${SSH_PASSWORD} ansible-playbook  -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} \
+     -k ${INTEGRATION_PLAYBOOKS_PATH}/docker-sahpescsearchrest.yml --vault-password-file ./password.txt \
+     --extra-vars "portal_sahpescsearch_rest_version=${VERSION}  docker_install_actions='no' "\  
+    fi
+
+  else
+  
+    sshpass -p ${SSH_PASSWORD} ansible-playbook -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} -k ${INTEGRATION_PLAYBOOKS_PATH}/integration-deploy.yml \
+    --extra-vars "docker_install_actions=${DOCKER_UPDATE} skip_sudo_tasks=no case_manager_version=${VERSION}" \
+    --vault-password-file ./password.txt --tags=${TAGS} --skip-tags=${EXCLUDE_TAGS}
+  
+  fi
+  
+  
+  # deploy only sa-mediastorage-rest with centos   
+  if [ "${TAGS}" = "mediastorage-rest" ]; then
+    if [ "${HOST_FILE}" = "hdp-fut1" ]; then
+    ansible-playbook -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} ${INTEGRATION_PLAYBOOKS_PATH}/sa-mediastorage-rest.yml --vault-password-file ./password.txt --extra-vars "mediastorage_rest_version=${VERSION}  docker_install_actions='${RE-DOCKER_UPDATE}' pbrun_command='/bin/sudo' "
+    else
+     sshpass -p ${SSH_PASSWORD} ansible-playbook  -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} \
+     -k ${INTEGRATION_PLAYBOOKS_PATH}/sa-mediastorage-rest.yml --vault-password-file ./password.txt \
+     --extra-vars "mediastorage_rest_version=${VERSION}  docker_install_actions='no' "\  
+    fi
+    
+  else
+  
+    sshpass -p ${SSH_PASSWORD} ansible-playbook -i ./inventories/${HOST_FILE} -u ${SSH_USERNAME} -k ${INTEGRATION_PLAYBOOKS_PATH}/integration-deploy.yml \
+    --extra-vars "docker_install_actions=${DOCKER_UPDATE} skip_sudo_tasks=no case_manager_version=${VERSION}" \
+    --vault-password-file ./password.txt --tags=${TAGS} --skip-tags=${EXCLUDE_TAGS}
+  
+  fi
+
+fi
+
+rm -f ./password.txt
