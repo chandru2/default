@@ -1,0 +1,14 @@
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+
+----------------------
+
+[CentOS-7-x86_64-os]
+name=CentOS-7-x86_64-os
+baseurl=http://itlnxcoe.houston.hp.com/LinuxCOE/CentOS/7/os/x86_64/
+gpgcheck=0
+enabled=1

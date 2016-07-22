@@ -1,0 +1,38 @@
+## {{ ansible_managed }}
+[Service]
+ExecStart=
+ExecStart=/usr/bin/docker daemon -s overlay -g /opt/mount1/docker -H tcp://0.0.0.0:2375 -H fd:// -H unix://var/run/docker.sock --dns {{ docker.dns_one }} --dns {{ docker.dns_two }} --insecure-registry sa-docker-registry.itcs.hp.com --insecure-registry sa-docker-registry-dev.itcs.hp.com --insecure-registry sa-docker-registry.itcs.hpecorp.net
+
+# -H fd://[angadic@c4t20957 templates]$
+
+-----------------------
+
+
+ansible -m command -a docker ps sonar -s
+
+-------------------------------------
+
+FROM sa-docker-registry.itcs.hp.com/sa20/java
+
+MAINTAINER Chandru <chandru.av@hpe.com>
+
+MAINTAINER torske
+
+ENV http_proxy http://web-proxy.corp.hpecorp.net:8080
+ENV https_proxy http://web-proxy.corp.hpecorp.net:8080
+
+RUN mkdir /opt/zookeeper-3.4.5 && mkdir -p /opt/zoo_data_dir
+
+RUN wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz | tar -xzf - -C /opt \
+    && mv /opt/zookeeper-3.4.6 /opt/zookeeper \
+    && mkdir -p /opt/zookeeper/conf \
+    && mkdir -p /tmp/zookeeper
+
+ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-amd64
+
+EXPOSE 2181 2888 3888
+
+WORKDIR /opt/zookeeper
+
+ENTRYPOINT ["/opt/zookeeper/bin/zkServer.sh"]
+

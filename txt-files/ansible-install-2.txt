@@ -3,30 +3,13 @@ he error message indicates yum is trying to install from the repoforge el5 repos
 Here is the solution for this problem:-
 
 solution :- reinstall rpmforge
-
 go to terminal
 
-01.
-
-[root@gts250 rajiv]# su
-
-02.
-
-[root@gts250 rajiv]# wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
-
-03.
-
-[root@gts250 rajiv]# rpm -Uvh rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
-
- 
-
-04.
-
-[root@gts250 rajiv]# yum clean all
-
-05.
-
-[root@gts250 rajiv]# yum update
+01.# su
+02.# wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+03.# rpm -Uvh rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+04.# yum clean all
+05.# yum update
 -------------------------------------------------------
 
 
@@ -45,6 +28,11 @@ go to terminal
  1057  yum remove epel-release
  1058  ls
  1059  wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+wget http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-7.noarch.rpm
+
+http://epel.mirror.net.in/epel/7/x86_64/e/epel-release-7-7.noarch.rpm
+rpm -ivh epel-release-7-7.noarch.rpm
+
  1060  rpm -ivh epel-release-6-8.noarch.rpm
  1061  rpm list
  1062  rpm repolist

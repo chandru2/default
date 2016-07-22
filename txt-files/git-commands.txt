@@ -16,3 +16,11 @@ git push origin --delete <branch-name>
 
 git ls-remote
 git config --global credential.helper cache
+--------------------------------------------------------
+echo "# project" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/chandru2/project.git
+git push -u origin master
+----------------------------------------------------------

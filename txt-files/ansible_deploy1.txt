@@ -5,10 +5,6 @@ September 7, 2014 by sharad chhetri Leave a Comment
 In this post we will learn how to install EPEL repo on CentOS 7 and RHEL 7. On our previous post of “How to install EPEL repo in CentOS/Scientific Linux/Red Hat” , we have already written about EPEL repo.
 
 
-AD
-Get Quality Dental Care
-Sponsored by Revenue.com
-Save on dental care including root canals, braces and more!
  
 Extra Packages for Enterprise Linux (or EPEL) is a Fedora Special Interest Group that creates, maintains, and manages a high quality set of additional packages for Enterprise Linux, including, but not limited to, Red Hat Enterprise Linux (RHEL), CentOS and Scientific Linux (SL), Oracle Enterprise Linux (OEL). (Reference : EPEL)
 
@@ -16,9 +12,10 @@ Install EPEL repo on CentOS 7 / RHEL 7
 
 Method 1 : By directly using yum command
 On CentOS 7, we have found without downloading the epel-release RPM package(as we used to do on previous O.S releases), we can install it by using yum command.
-
 yum install epel-release
 See below given reference from our system.
+
+
 
 [root@localhost ~]# yum install epel-release
 Loaded plugins: fastestmirror
@@ -71,6 +68,7 @@ For x86_64 Operating System architecture:
 yum install wget
 wget -r --no-parent -A 'epel-release-*.rpm' http://dl.fedoraproject.org/pub/epel/7/x86_64/e/ 
 rpm -Uvh dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-*.rpm
+
 Method 3: Directly installing from HTTP by using rpm command
 
 By directly using rpm command with http URL address(for x86_64),you can also install epel-release package. Make sure, to get the correct HTTP address from EPEL’s URL
